@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <coverage xmlns="http://www.netbeans.org/ns/code-coverage/1" enabled="false"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/var/www/html/ctv2/module/Administration/src/Administration/Controller/InfoscriptController.php</file>
+        <file>file:/var/www/html/ctv2/module/Administration/view/administration/infoscript/show.phtml</file>
+        <file>file:/var/www/html/ctv2/module/Administration/config/module.config.constants.php</file>
+        <file>file:/var/www/html/ctv2/module/Administration/src/Administration/Model/Table/Url.php</file>
+    </open-files>
+</project-private>

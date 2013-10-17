@@ -17,10 +17,6 @@ class IndexController extends AbstractController
     {
         $content = __METHOD__;
 
-
-        var_dump($this->getServiceLocator()->get('Company\Table\Url')->fetchAll()->current());
-
-
         return new ViewModel(array('content' => $content));
     }
 

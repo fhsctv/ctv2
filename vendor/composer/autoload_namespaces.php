@@ -7,7 +7,4 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Zend\\' => array($vendorDir . '/zendframework/zendframework/library'),
-    'ZendDeveloperTools' => array($vendorDir . '/zendframework/zend-developer-tools/src'),
-    'ZFTool\\' => array($vendorDir . '/zendframework/zftool/src'),
-    'BjyProfiler' => array($vendorDir . '/bjyoungblood/BjyProfiler/src'),
 );

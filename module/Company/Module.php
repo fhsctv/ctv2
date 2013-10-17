@@ -42,6 +42,11 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Se
                 'Company\Table\Infoscript'        => '\Company\Service\Factory\Table\Infoscript',
                 'Company\Table\Url'               => '\Company\Service\Factory\Table\Url',
             ),
+            'invokables' => array(
+                'Company\Mapper\User'             => '\Company\Model\Mapper\User',
+                'Company\Mapper\Infoscript'       => '\Company\Model\Mapper\Infoscript',
+                'Company\Mapper\Url'              => '\Company\Model\Mapper\Url',
+            )
         );
     }
 

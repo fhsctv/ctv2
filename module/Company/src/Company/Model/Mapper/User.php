@@ -12,6 +12,8 @@ class User extends ClassMethods {
 
     public function hydrate(array $data, $object) {
 
+        assert(is_a($object, 'Company\Model\Entity\User'));
+
         parent::hydrate($data, $object);
 
         //setze UserId, wenn vorhanden

@@ -2,7 +2,7 @@
 
 namespace CompanyTest\Model\Entity;
 
-class CompanyTest extends \PHPUnit_Framework_TestCase {
+class UserTest extends \PHPUnit_Framework_TestCase {
 
 
     protected $hydrator;

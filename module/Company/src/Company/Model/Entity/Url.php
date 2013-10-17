@@ -2,7 +2,10 @@
 
 namespace Company\Model\Entity;
 
-class Url implements \Company\Model\IEntity {
+use Company\Model\IEntity;
+use Company\Model\Entity\IUrl;
+
+class Url implements IEntity {
 
     const TRUE = 1;
     const FALSE = 0;
@@ -13,6 +16,8 @@ class Url implements \Company\Model\IEntity {
     protected $start;
     protected $ende;
     protected $aktiv;
+
+    protected $dependentEntity;
 
     public function __construct() {
 
@@ -71,6 +76,27 @@ class Url implements \Company\Model\IEntity {
         $this->aktiv = $aktiv;
         return $this;
     }
+
+
+    public function getDependentEntity() {
+        return $this->dependentEntity;
+}
+
+    public function setDependentEntity(IUrl $dependentEntity) {
+
+        $this->dependentEntity = $dependentEntity;
+
+
+        $this->setUrlIdForDependentEntity();
+
+        return $this;
+}
+
+    private function setUrlIdForDependentEntity(){
+
+        is_null($this->getId()) ? : $this->getDependentEntity()->setUrlId($this->getId());
+    }
+
 
 }
 
