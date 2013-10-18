@@ -2,7 +2,7 @@
 
 namespace Administration\Model\Entity\Exception;
 
-class InfoscriptUrlIdMismachException extends \Exception {
+class UrlIdMismach extends \Exception {
 
     public function __construct($infoscriptId, $urlId) {
 

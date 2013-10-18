@@ -5,15 +5,15 @@ namespace Administration\Service\Factory\TableGateway;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\ResultSet\HydratingResultSet;
 
-use Administration\Model\Mapper\Infoscript as Hydrator;
-use Administration\Model\Entity\Infoscript as Entity;
+use Administration\Model\Mapper\Anzeige as Hydrator;
+use Administration\Model\Entity\Anzeige as Entity;
 
-class Infoscript extends AbstractFactory {
+class Anzeige extends AbstractFactory {
 
     const ADAPTER  = 'Zend\Db\Adapter\Adapter';
-    const TABLE    = 'infoscript';
+    const TABLE    = 'anzeige';
     const ID       = 'id';
-    const SEQUENCE = 'infoscript_id_seq';
+    const SEQUENCE = 'anzeige_id_seq';
 
 
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
@@ -45,3 +45,6 @@ class Infoscript extends AbstractFactory {
     }
 
 }
+
+
+?>

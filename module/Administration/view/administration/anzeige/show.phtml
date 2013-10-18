@@ -1,0 +1,66 @@
+
+<h2 class="h2"> Administrator - Anzeigen </h2>
+
+
+<h3>Aktive Anzeigen</h3>
+
+<table class="table table-hover table-responsive table-striped">
+    <thead>
+        <tr >
+            <th>Start</th>    <th>Ende</th>  <th>Aktiv</th>   <th>Url</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->current as $value) : ?>
+        <tr>
+            <td> <?php echo $value->getUrl()->getStart(); ?> </td>
+            <td> <?php echo $value->getUrl()->getEnde();  ?> </td>
+            <td> <?php echo $value->getUrl()->getAktiv(); ?> </td>
+            <td> <?php echo $value->getUrl()->getUrl();   ?> </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+<h3>Zukünftige Anzeigen</h3>
+
+<table class="table table-hover table-responsive table-striped">
+    <thead>
+        <tr>
+            <th>Start</th>    <th>Ende</th>  <th>Aktiv</th>   <th>Url</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->future as $value) : ?>
+        <tr>
+            <td> <?php echo $value->getUrl()->getStart(); ?> </td>
+            <td> <?php echo $value->getUrl()->getEnde();  ?> </td>
+            <td> <?php echo $value->getUrl()->getAktiv(); ?> </td>
+            <td> <?php echo $value->getUrl()->getUrl();   ?> </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+<h3>Abgelaufene Anzeigen</h3>
+
+<table class="table table-hover table-responsive table-striped">
+    <thead>
+        <tr>
+            <th>Start</th>
+            <th>Ende</th>
+            <th>Aktiv</th>
+            <th>Url</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->outdated as $value) : ?>
+        <tr>
+            <td> <?php echo $value->getUrl()->getStart(); ?> </td>
+            <td> <?php echo $value->getUrl()->getEnde();  ?> </td>
+            <td> <?php echo $value->getUrl()->getAktiv(); ?> </td>
+            <td> <?php echo $value->getUrl()->getUrl();   ?> </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>

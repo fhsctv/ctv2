@@ -7,32 +7,21 @@ use Zend\Db\Sql\Select;
 use Administration\Model\ITable;
 use Administration\Model\Table\AbstractTable;
 
-class Infoscript extends AbstractTable implements ITable {
+class Anzeige extends AbstractTable implements ITable {
 
     const ID_KEY = 'id';
-    
-    protected $urlTable;
-    
-    public function getUrlTable() {
-        return $this->urlTable;
-    }
-
-    public function setUrlTable(UrlTable $urlTable) {
-        $this->urlTable = $urlTable;
-        return $this;
-    }
-    
 
     protected function getColumns(\Zend\Db\Sql\Select $select) {
 
-        $columns = array(
-            'id'     => 'id',
-            'userId' => 'fk_user_id',
-            'urlId'  => 'fk_url_id'
-        );
+//        $columns = array(
+//            'id'     => 'id',
+//            'fk_user_id' => 'fk_user_id',
+//            'fk_url_id'  => 'fk_url_id'
+//        );
+//
+//        return $select->columns($columns);
 
-        return $select->columns($columns);
-
+        return $select;
     }
 
     protected function getJoin(Select $select) {
@@ -47,7 +36,6 @@ class Infoscript extends AbstractTable implements ITable {
 
 
         return $select->join($urlTable,$condition,Select::SQL_STAR);
-        
     }
 
     protected function getIdKey() {
@@ -55,3 +43,6 @@ class Infoscript extends AbstractTable implements ITable {
     }
 
 }
+
+
+?>

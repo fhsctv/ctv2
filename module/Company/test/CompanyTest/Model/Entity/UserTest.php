@@ -1,6 +1,6 @@
 <?php
 
-namespace CompanyTest\Model\Entity;
+namespace AdministrationTest\Model\Entity;
 
 class UserTest extends \PHPUnit_Framework_TestCase {
 
@@ -9,13 +9,13 @@ class UserTest extends \PHPUnit_Framework_TestCase {
 
     public function setUp(){
 
-        $this->hydrator = new \Company\Model\Mapper\User();
+        $this->hydrator = new \Administration\Model\Mapper\User();
 
     }
 
     public function testHydratorExtraction(){
 
-        $entity = new \Company\Model\Entity\User();
+        $entity = new \Administration\Model\Entity\User();
         $entity->setDisplayName('Administrator')
                ->setEmail('zirnsak@stud.fh-sm.de')
                ->setState('1')
@@ -48,14 +48,14 @@ class UserTest extends \PHPUnit_Framework_TestCase {
             'state'        => '1',
         );
 
-        $expectedEntity = new \Company\Model\Entity\User();
+        $expectedEntity = new \Administration\Model\Entity\User();
         $expectedEntity->setUserName('administrator')
                 ->setEmail('zirnsak@stud.fh-sm.de')
                 ->setDisplayName('Administrator')
                 ->setPassword('123456')
                 ->setState('1');
 
-        $actualEntity = $this->hydrator->hydrate($data, new \Company\Model\Entity\User());
+        $actualEntity = $this->hydrator->hydrate($data, new \Administration\Model\Entity\User());
 
         $this->assertEquals($expectedEntity, $actualEntity);
 
@@ -72,7 +72,7 @@ class UserTest extends \PHPUnit_Framework_TestCase {
             'state'        => '1',
         );
 
-        $expectedEntity = new \Company\Model\Entity\User();
+        $expectedEntity = new \Administration\Model\Entity\User();
         $expectedEntity->setUserName('administrator')
                 ->setEmail('zirnsak@stud.fh-sm.de')
                 ->setDisplayName('Administrator')
@@ -80,7 +80,7 @@ class UserTest extends \PHPUnit_Framework_TestCase {
                 ->setState('1')
                 ->setId(21);
 
-        $actualEntity = $this->hydrator->hydrate($data, new \Company\Model\Entity\User());
+        $actualEntity = $this->hydrator->hydrate($data, new \Administration\Model\Entity\User());
 
         $this->assertEquals($expectedEntity, $actualEntity);
 

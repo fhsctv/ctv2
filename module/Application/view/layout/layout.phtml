@@ -26,6 +26,7 @@
 
     </head>
     <body>
+
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
@@ -36,7 +37,7 @@
                     </button>
                     <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/zf2-logo.png') ?>" alt="Zend Framework 2"/>&nbsp;<?php echo $this->translate('FHS CampusTV') ?></a>
                 </div>
-                <div class="collapse navbar-collapse">
+                <div class="collapse navbar-collapse dropdown">
 <!--                    <ul class="nav navbar-nav">
                         <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
                     </ul>-->
@@ -45,24 +46,37 @@
             </div>
         </nav>
 
+        <div class="container col-md-12">
 
+            <div class ="row">
 
-        <div class="container">
+                <div class="col-md-4 breadcrumb">
+                     Menu: <?php echo $this->navigation('navigation')->menu()->setUlClass('nav')->setMinDepth(1)->setMaxDepth(2)->renderSubmenu(); ?> <br />
+                </div>
 
-             <div class="breadcrumb">
-                 Menu: <?php echo $this->navigation('navigation')->menu()->setUlClass('nav')->setMinDepth(1)->setMaxDepth(2); ?> <br />
+                <div class="col-md-offset-1 col-md-7 breadcrumb">
+                     Sie sind hier: <?php echo $this->navigation('navigation')->breadcrumbs()->setMinDepth(0); ?>
+                </div>
+
             </div>
 
-             <div class="breadcrumb">
-                 Sie sind hier: <?php echo $this->navigation('navigation')->breadcrumbs(); ?>
+            <div class ="row">
+                <?php echo $this->content; ?>
             </div>
 
-            <?php echo $this->content; ?>
-            <hr>
-            <footer>
-                <p>&copy; 2005 - <?php echo date('Y') ?> by Zend Technologies Ltd. <?php echo $this->translate('All rights reserved.') ?></p>
-            </footer>
+            <div class ="row">
+                <hr>
+                <footer>
+                    <p>&copy; 2005 - <?php echo date('Y') ?> by Zend Technologies Ltd. <?php echo $this->translate('All rights reserved.') ?></p>
+                </footer>
+            </div>
+
         </div> <!-- /container -->
+
+
+
+
+
         <?php echo $this->inlineScript() ?>
     </body>
 </html>

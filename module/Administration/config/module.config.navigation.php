@@ -8,11 +8,17 @@ return array(
                 'route' => 'administration',
                 'pages' => array(
                     'infoscript' => array(
-                        'label' => 'Infoscript',
+                        'label' => 'Infoscripte',
                         'route' => 'administration/default',
                         'controller' => 'infoscript',
                         'action' => 'index',
                         'pages' => array(
+                            'index' => array(
+                                'label' => 'Index',
+                                'route' => 'administration/default',
+                                'controller' => 'infoscript',
+                                'action' => 'index',
+                            ),
                             'show' => array(
                                 'label' => 'Show',
                                 'route' => 'administration/default',
@@ -27,17 +33,23 @@ return array(
 //                            ),
                         ),
                     ),
-//                    'anzeigen' => array(
-//                        'label' => 'Anzeigen',
-//                        'route' => 'administration/default',
-//                        'controller' => 'anzeige',
-//                        'action' => 'index',
-//                        'pages' => array(
-//                            'show' => array(
-//                                'label' => 'Show',
-//                                'route' => 'administration/default',
-//                                'controller' => 'anzeige',
-//                                'action' => 'show',
+                    'anzeigen' => array(
+                        'label' => 'Anzeigen',
+                        'route' => 'administration/default',
+                        'controller' => 'anzeige',
+                        'action' => 'index',
+                        'pages' => array(
+                            'index' => array(
+                                'label' => 'Index',
+                                'route' => 'administration/default',
+                                'controller' => 'anzeige',
+                                'action' => 'index',
+                            ),
+                            'show' => array(
+                                'label' => 'Show',
+                                'route' => 'administration/default',
+                                'controller' => 'anzeige',
+                                'action' => 'show',
 //                                'pages' => array(
 //                                    'active' => array(
 //                                        'label' => 'Active',
@@ -78,9 +90,9 @@ return array(
 //                                'route' => 'administration/default',
 //                                'controller' => 'anzeige',
 //                                'action' => 'delete',
-//                            ),
-//                        ),
-//                    ),
+                            ),
+                        ),
+                    ),
                 )
             ),
         ),

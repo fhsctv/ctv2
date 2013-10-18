@@ -1,6 +1,6 @@
 <?php
 
-namespace Administration\Service\Iterator\Filter\Infoscript;
+namespace Administration\Service\Iterator\Filter\Url;
 
 class Current extends \FilterIterator {
 
@@ -8,7 +8,7 @@ class Current extends \FilterIterator {
 
         $value = $this->current();
 
-        assert(is_a($value, '\Administration\Model\Entity\Infoscript'));
+        assert(is_a($value, '\Administration\Model\Entity\IUrl'));
 
         $today = date('Y-m-d');
 
@@ -17,7 +17,3 @@ class Current extends \FilterIterator {
     }
 
 }
-
-
-
-?>

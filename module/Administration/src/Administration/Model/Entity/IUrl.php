@@ -8,8 +8,8 @@ namespace Administration\Model\Entity;
  */
 interface IUrl {
 
-    public function getUrlId();
-    public function setUrlId($id);
+    public function getUrl();
+    public function setUrl(Url $url);
 
 }
 

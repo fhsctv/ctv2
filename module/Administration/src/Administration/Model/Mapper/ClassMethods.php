@@ -10,16 +10,28 @@ namespace Administration\Model\Mapper;
  */
 class ClassMethods extends \Zend\Stdlib\Hydrator\ClassMethods {
 
-    public function extract($object) {
-
-        $emptyFilter = function(&$value){
+    protected $filterCallback;
+    
+    public function __construct() {
+        parent::__construct();
+        
+        $this->filterCallback = function(&$value){
             return !(($value === null) || ($value === '')); //Werte dürfen nicht null oder leerer String sein
         };
+    }
 
-        return array_filter(parent::extract($object), $emptyFilter);
 
+    public function extract($object) {
+
+        return array_filter(parent::extract($object), $this->filterCallback);
+
+    }
+    
+    public function hydrate(array $data, $object) {
+        
+        $emptyFilteredData = array_filter($data, $this->filterCallback);
+        
+        return parent::hydrate($emptyFilteredData, $object);
     }
 
 }
-
-?>

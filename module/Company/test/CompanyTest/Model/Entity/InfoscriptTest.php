@@ -1,6 +1,6 @@
 <?php
 
-namespace CompanyTest\Model\Entity;
+namespace AdministrationTest\Model\Entity;
 
 class InfoscriptTest extends \PHPUnit_Framework_TestCase {
 
@@ -9,20 +9,20 @@ class InfoscriptTest extends \PHPUnit_Framework_TestCase {
 
     public function setUp(){
 
-        $this->hydrator = new \Company\Model\Mapper\Infoscript();
+        $this->hydrator = new \Administration\Model\Mapper\Infoscript();
 
     }
 
     public function testHydratorExtraction(){
 
-        $entity = new \Company\Model\Entity\Infoscript();
+        $entity = new \Administration\Model\Entity\Infoscript();
         $entity->setId('1')->setUrlId('2')->setUserId('3');
 
 
         $expectedArray = array(
-            'id'         => '1',
-            'fk_url_id'  => '2',
-            'fk_user_id' => '3',
+            'id'         => 1,
+            'fk_url_id'  => 2,
+            'fk_user_id' => 3,
         );
 
         $actualArray = $this->hydrator->extract($entity);
@@ -33,7 +33,7 @@ class InfoscriptTest extends \PHPUnit_Framework_TestCase {
 
     public function testHydratorExtractionWithoutId(){
 
-        $entity = new \Company\Model\Entity\Infoscript();
+        $entity = new \Administration\Model\Entity\Infoscript();
         $entity->setUrlId('2')->setUserId('3');
 
 
@@ -51,7 +51,7 @@ class InfoscriptTest extends \PHPUnit_Framework_TestCase {
 
     public function testHydratorExtractionWithoutUrlId(){
 
-        $entity = new \Company\Model\Entity\Infoscript();
+        $entity = new \Administration\Model\Entity\Infoscript();
         $entity->setId('1')->setUserId('3');
 
 
@@ -69,7 +69,7 @@ class InfoscriptTest extends \PHPUnit_Framework_TestCase {
 
     public function testHydratorExtractionWithoutUserId(){
 
-        $entity = new \Company\Model\Entity\Infoscript();
+        $entity = new \Administration\Model\Entity\Infoscript();
         $entity->setId('1')->setUrlId('2');
 
 
@@ -93,10 +93,10 @@ class InfoscriptTest extends \PHPUnit_Framework_TestCase {
             'fk_url_id'  => '111',
         );
 
-        $expectedEntity = new \Company\Model\Entity\Infoscript();
+        $expectedEntity = new \Administration\Model\Entity\Infoscript();
         $expectedEntity->setId('11')->setUserId('12')->setUrlId('111');
 
-        $actualEntity = $this->hydrator->hydrate($data, new \Company\Model\Entity\Infoscript());
+        $actualEntity = $this->hydrator->hydrate($data, new \Administration\Model\Entity\Infoscript());
 
         $this->assertEquals($expectedEntity, $actualEntity);
 
@@ -110,10 +110,10 @@ class InfoscriptTest extends \PHPUnit_Framework_TestCase {
             'fk_url_id'  => '111',
         );
 
-        $expectedEntity = new \Company\Model\Entity\Infoscript();
+        $expectedEntity = new \Administration\Model\Entity\Infoscript();
         $expectedEntity->setId('11')->setUrlId('111');
 
-        $actualEntity = $this->hydrator->hydrate($data, new \Company\Model\Entity\Infoscript());
+        $actualEntity = $this->hydrator->hydrate($data, new \Administration\Model\Entity\Infoscript());
 
         $this->assertEquals($expectedEntity, $actualEntity);
 
@@ -127,10 +127,10 @@ class InfoscriptTest extends \PHPUnit_Framework_TestCase {
             'fk_url_id'  => '111',
         );
 
-        $expectedEntity = new \Company\Model\Entity\Infoscript();
+        $expectedEntity = new \Administration\Model\Entity\Infoscript();
         $expectedEntity->setUserId('12')->setUrlId('111');
 
-        $actualEntity = $this->hydrator->hydrate($data, new \Company\Model\Entity\Infoscript());
+        $actualEntity = $this->hydrator->hydrate($data, new \Administration\Model\Entity\Infoscript());
 
         $this->assertEquals($expectedEntity, $actualEntity);
 
