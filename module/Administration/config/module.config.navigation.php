@@ -13,24 +13,42 @@ return array(
                         'controller' => 'infoscript',
                         'action' => 'index',
                         'pages' => array(
-                            'index' => array(
-                                'label' => 'Index',
-                                'route' => 'administration/default',
-                                'controller' => 'infoscript',
-                                'action' => 'index',
-                            ),
-                            'show' => array(
-                                'label' => 'Show',
-                                'route' => 'administration/default',
-                                'controller' => 'infoscript',
-                                'action' => 'show',
-                            ),
-//                            'edit' => array(
-//                                'label' => 'Edit',
+//                            'index' => array(
+//                                'label' => 'Index',
 //                                'route' => 'administration/default',
 //                                'controller' => 'infoscript',
-//                                'action' => 'edit',
+//                                'action' => 'index',
 //                            ),
+//                            'show' => array(
+//                                'label' => 'Anzeigen',
+//                                'route' => 'administration/default',
+//                                'controller' => 'infoscript',
+//                                'action' => 'show',
+//                            ),
+                            'details' => array(
+                                'label' => 'Details',
+                                'route' => 'administration/default',
+                                'controller' => 'infoscript',
+                                'action' => 'details',
+                            ),
+                            'create' => array(
+                                'label' => 'Erstellen',
+                                'route' => 'administration/default',
+                                'controller' => 'infoscript',
+                                'action' => 'create',
+                            ),
+                            'edit' => array(
+                                'label' => 'Bearbeiten',
+                                'route' => 'administration/default',
+                                'controller' => 'infoscript',
+                                'action' => 'edit',
+                            ),
+                            'delete' => array(
+                                'label' => 'Löschen',
+                                'route' => 'administration/default',
+                                'controller' => 'infoscript',
+                                'action' => 'delete',
+                            ),
                         ),
                     ),
                     'anzeigen' => array(

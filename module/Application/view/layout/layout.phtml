@@ -50,12 +50,23 @@
 
             <div class ="row">
 
-                <div class="col-md-4 breadcrumb">
+                <div class="col-md-3 breadcrumb">
                      Menu: <?php echo $this->navigation('navigation')->menu()->setUlClass('nav')->setMinDepth(1)->setMaxDepth(2)->renderSubmenu(); ?> <br />
                 </div>
 
-                <div class="col-md-offset-1 col-md-7 breadcrumb">
-                     Sie sind hier: <?php echo $this->navigation('navigation')->breadcrumbs()->setMinDepth(0); ?>
+                <div class="row col-md-offset-1 col-md-8">
+                    <div class="col-md-8 breadcrumb">
+                         Sie sind hier: <?php echo $this->navigation('navigation')->breadcrumbs()->setMinDepth(0); ?>
+                    </div>
+                    
+                    <?php if(isset($this->tasks)) : ?>
+                            <div class="col-md-8 breadcrumb">
+                                    Aufgaben: 
+                                <?php   foreach($this->tasks as $task): ?>
+                                             <a href='<?= $task['target']?> '> <img src='<?= $task['icon'] ?> '> </a>
+                                <?php   endforeach; ?>
+                            </div>
+                    <?php endif; ?>
                 </div>
 
             </div>
