@@ -88,12 +88,10 @@ class InfoscriptController extends AbstractController {
         $id = $this->params('id');
         
         if(empty($id)) {
-            return $this->redirect()->toRoute(self::ROUTE, array(
-                'controller' => self::CONTROLLER, 
-                'action' => self::ACTION_INDEX));
+            return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
         }
         
-        $service = $this->getService(C::SERVICE_INFOSCRIPT);
+        $service  = $this->getService(C::SERVICE_INFOSCRIPT);
         $original = $service->get($id);
         
         $form = $this->getServiceLocator()->get(C::SERVICE_FORM_INFOSCRIPT);
@@ -116,9 +114,7 @@ class InfoscriptController extends AbstractController {
         $id = $this->params()->fromRoute('id', null);
 
         if (!$id) {
-            return $this->redirect()->toRoute(self::ROUTE, array(
-                'action' => self::ACTION_INDEX
-            ));
+            return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
         }
         
         $infoscript = $this->getService(C::SERVICE_INFOSCRIPT)->get($id);

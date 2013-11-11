@@ -88,12 +88,10 @@ class AnzeigeController extends AbstractController {
         $id = $this->params('id');
         
         if(empty($id)) {
-            return $this->redirect()->toRoute(self::ROUTE, array(
-                'controller' => self::CONTROLLER, 
-                'action' => self::ACTION_INDEX));
+            return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
         }
         
-        $service = $this->getService(C::SERVICE_ANZEIGE);
+        $service  = $this->getService(C::SERVICE_ANZEIGE);
         $original = $service->get($id);
         
         $form = $this->getServiceLocator()->get(C::SERVICE_FORM_ANZEIGE);
@@ -116,9 +114,7 @@ class AnzeigeController extends AbstractController {
         $id = $this->params()->fromRoute('id', null);
 
         if (!$id) {
-            return $this->redirect()->toRoute(self::ROUTE, array(
-                'action' => self::ACTION_INDEX
-            ));
+            return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
         }
         
         $anzeige = $this->getService(C::SERVICE_ANZEIGE)->get($id);
