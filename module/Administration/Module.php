@@ -42,7 +42,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Se
                
             ),
             'aliases' => array(
-
+                
             )
         );
     }
