@@ -18,19 +18,21 @@ class InfoscriptController extends AbstractController {
     const ACTION_CREATE                  = 'create';
     const ACTION_EDIT                    = 'edit';
     const ACTION_DELETE                  = 'delete';
-    
+    const ACTION_DELETE_DISPLAY          = 'delete-from-display';
+    const ACTION_ADD_DISPLAY             = 'add-to-display';
+
     const TABLE_INFOSCRIPT               = 'Base\Table\Infoscript';
 
     const MESSAGE_CREATE_SUCCESS         = 'Das Infoscript wurde erfolgreich erstellt!';
     const FLASHMESSENGER_EDIT_SUCCESS    = 'Das Infoscript wurde erfolgreich bearbeitet!';
 
     public function indexAction() {
-        
-        
-        return $this->forward()->dispatch($this->params('controller'), 
+
+
+        return $this->forward()->dispatch($this->params('controller'),
                 array('action' => self::ACTION_SHOW));
 
-        
+
         // <editor-fold defaultstate="collapsed" desc="Beispiel für Weiterleitung mit Parametern">
         //        return $this->forward()->dispatch('Administration/Controller/Infoscript', array(
         //                'action' => 'index',
@@ -44,20 +46,20 @@ class InfoscriptController extends AbstractController {
     public function showAction() {
 
         $service = $this->getServiceLocator()->get(C::SERVICE_INFOSCRIPT);
-        
+
         $infoscript = $service->fetchAll();
-        
+
         return new ViewModel(
                 array(
                     'urlDetails' => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DETAILS)),
                     'urlCreate'  => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_CREATE)),
                     'urlEdit'    => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_EDIT)),
                     'urlDelete'  => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DELETE)),
-                    
+
                     'msgSuccess' => $this->flashMessenger()->getCurrentSuccessMessages(),
                     'msgInfo'    => $this->flashMessenger()->getCurrentInfoMessages(),
                     'msgError'   => $this->flashMessenger()->getCurrentErrorMessages(),
-                    
+
                     'current'    => new Filter\Current($infoscript),
                     'outdated'   => new Filter\Outdated($infoscript),
                     'future'     => new Filter\Future($infoscript),
@@ -75,25 +77,25 @@ class InfoscriptController extends AbstractController {
         if (!$infoscript) {
             return new ViewModel(array('form' => $form));
         }
-        
-        
+
+
         $service->save($infoscript);
 
         $this->flashMessenger()->addSuccessMessage(self::MESSAGE_CREATE_SUCCESS);
         return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_SHOW);
     }
-    
+
     public function editAction() {
 
         $id = $this->params('id');
-        
+
         if(empty($id)) {
             return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
         }
-        
+
         $service  = $this->getService(C::SERVICE_INFOSCRIPT);
-        $original = $service->get($id);
-        
+        $original = $service->getById($id);
+
         $form = $this->getServiceLocator()->get(C::SERVICE_FORM_INFOSCRIPT);
         $form->bind($original);
 
@@ -108,17 +110,17 @@ class InfoscriptController extends AbstractController {
         $this->flashMessenger()->addSuccessMessage(self::FLASHMESSENGER_EDIT_SUCCESS);
         return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
     }
-    
+
     public function deleteAction() {
-        
+
         $id = $this->params()->fromRoute('id', null);
 
         if (!$id) {
             return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
         }
-        
-        $infoscript = $this->getService(C::SERVICE_INFOSCRIPT)->get($id);
-        
+
+        $infoscript = $this->getService(C::SERVICE_MAPPER_INFOSCRIPT)->getById($id);
+
         if(!$this->dataReceived()) {
             return new ViewModel(
                 array(
@@ -127,169 +129,223 @@ class InfoscriptController extends AbstractController {
                     'urlDelete'  => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DELETE, 'id' => $id)),
                     'infoscript' => $infoscript,));
         }
-        
-        $this->getService(C::SERVICE_INFOSCRIPT)->delete($infoscript, $this->getRequest(), $this->flashMessenger());
-        
+
+        $this->getService(C::SERVICE_MAPPER_INFOSCRIPT)->delete($infoscript, $this->getRequest(), $this->flashMessenger());
+
         return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
+        
     }
-    
-    
 
     public function detailsAction() {
+
+        $id = (int) $this->params('id', NULL);
         
-        $content = __METHOD__;
+        if(!$id){
+            throw new \Exception('Nicht vorhanden. Bitte benutzen sie den \'Details- Button\' in der Übersicht');
+        }
         
+        $infoscript  = $this->getService(C::SERVICE_INFOSCRIPT)->getById($id);
+        
+        $deleteUrl   = $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DELETE_DISPLAY));
+        $addUrl      = $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_ADD_DISPLAY));
+        
+        //TODO von Datenbank holen
+        $bildschirme = array(1, 2, 3, 4);
+        
+        $addBildschirme = array_diff($bildschirme, $infoscript->getBildschirme());
+
+
         return new ViewModel(
             array(
-                'content' => $content
+                'infoscript'  => $infoscript,
+                'deleteUrl'   => $deleteUrl,
+                'bildschirme' => $addBildschirme,
+                'addUrl'      => $addUrl,
             )
         );
     }
 
     
+    //TODO Auslagern in eigenen Display- Controller
+    public function deleteFromDisplayAction(){
+        
+        $inseratId    = (int) $this->params('id', null);
+        $bildschirmId = (int) $this->params('display', null);
+        
+        if (!($inseratId && $bildschirmId)) {
+            return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
+        }
+        
+        $infoscript = $this->getService(C::SERVICE_INFOSCRIPT)->getById($inseratId);
+        
+        if(!$this->dataReceived()) {
+            return new ViewModel(
+                array(
+                    'form'       => $this->getService(C::SERVICE_FORM_DELETE),
+                    'id'         => $inseratId,
+                    'urlDelete'  => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DELETE_DISPLAY, 'id' => $inseratId, 'display' => $bildschirmId)),
+                    'infoscript' => $infoscript,
+                    ));
+        }
+        
+        $table = $this->getService(C::SERVICE_TABLE_INSERATBILDSCHIRMLINKER);
+        $table->delete($inseratId, $bildschirmId);
+
+        
+        return $this->redirect()->toRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DETAILS, 'id' => $inseratId));
+        
+    }
+    
+    public function addToDisplayAction(){
+        
+        $inseratId    = (int) $this->params('id', null);
+        $bildschirmId = (int) $this->params('display', null);
+        
+        if (!($inseratId && $bildschirmId)) {
+            return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
+        }
+        
+        $table = $this->getService(C::SERVICE_TABLE_INSERATBILDSCHIRMLINKER);
+        $table->insert(array('inserat_id' => $inseratId, 'bildschirm_id' => $bildschirmId));
+        
+        
+        return $this->redirect()->toRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DETAILS, 'id' => $inseratId));
+        
+    }
+    //ENDTODO
 
     public function importAction() {
-        
+
         $set = array(
             // <editor-fold defaultstate="collapsed" desc="set">
             array(
-                C::INFO_ID      => '',
-                C::INFO_USER_ID => '1',
-                C::INFO_URL_ID  => '',
-                C::URL_ADRESSE  => 'http://futhuer.de/ctv/live/infoscripte/googlenews/news_check.php',
-                C::URL_START    => '2012-06-18',
-                C::URL_ENDE     => '2099-12-31',
-                C::URL_AKTIV    => '1',
+                'inserat_id'      => '',
+                'fk_fh_id' => '1',
+                'url'  => 'http://futhuer.de/ctv/live/infoscripte/googlenews/news_check.php',
+                'start'    => '2012-06-18',
+                'ende'     => '2099-12-31',
+                'aktiv'    => '1',
             ),
             array(
-                C::INFO_ID      => '',
-                C::INFO_USER_ID => '1',
-                C::INFO_URL_ID  => '',
-                C::URL_ADRESSE  => 'http://futhuer.de/ctv/live/infoscripte/sap2013/sap2013.html',
-                C::URL_START    => '2013-10-12',
-                C::URL_ENDE     => '2013-10-16',
-                C::URL_AKTIV    => '1',
+                'inserat_id'      => '',
+                'fk_fh_id' => '1',
+                'url'  => 'http://futhuer.de/ctv/live/infoscripte/sap2013/sap2013.html',
+                'start'    => '2013-10-12',
+                'ende'     => '2013-10-16',
+                'aktiv'    => '1',
             ),
             array(
-                C::INFO_ID      => '',
-                C::INFO_USER_ID => '1',
-                C::INFO_URL_ID  => '',
-                C::URL_ADRESSE  => 'http://futhuer.de/ctv/live/infoscripte/mensa/mensa_neu.php',
-                C::URL_START    => '2012-06-10',
-                C::URL_ENDE     => '2099-12-31',
-                C::URL_AKTIV    => '1',
+                'inserat_id'      => '',
+                'fk_fh_id' => '1',
+                'url'  => 'http://futhuer.de/ctv/live/infoscripte/mensa/mensa_neu.php',
+                'start'    => '2012-06-10',
+                'ende'     => '2099-12-31',
+                'aktiv'    => '1',
             ),
             array(
-                C::INFO_ID      => '',
-                C::INFO_USER_ID => '1',
-                C::INFO_URL_ID  => '',
-                C::URL_ADRESSE  => 'http://futhuer.de/ctv/live/infoscripte/niederschlagsradar/wetter.php',
-                C::URL_START    => '2012-06-18',
-                C::URL_ENDE     => '2099-12-31',
-                C::URL_AKTIV    => '1',
+                'inserat_id'      => '',
+                'fk_fh_id' => '1',
+                'url'  => 'http://futhuer.de/ctv/live/infoscripte/niederschlagsradar/wetter.php',
+                'start'    => '2012-06-18',
+                'ende'     => '2099-12-31',
+                'aktiv'    => '1',
             ),
             array(
-                C::INFO_ID      => '',
-                C::INFO_USER_ID => '1',
-                C::INFO_URL_ID  => '',
-                C::URL_ADRESSE  => 'http://futhuer.de/ctv/live/anzeigen/Willkommen/Willkommen.html',
-                C::URL_START    => '2013-10-07',
-                C::URL_ENDE     => '2013-10-16',
-                C::URL_AKTIV    => '1',
+                'inserat_id'      => '',
+                'fk_fh_id' => '1',
+                'url'  => 'http://futhuer.de/ctv/live/anzeigen/Willkommen/Willkommen.html',
+                'start'    => '2013-10-07',
+                'ende'     => '2013-10-16',
+                'aktiv'    => '1',
             ),
             array(
-                C::INFO_ID      => '',
-                C::INFO_USER_ID => '1',
-                C::INFO_URL_ID  => '',
-                C::URL_ADRESSE  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/03.html',
-                C::URL_START    => '2013-06-15',
-                C::URL_ENDE     => '2013-06-15',
-                C::URL_AKTIV    => '1',
+                'inserat_id'      => '',
+                'fk_fh_id' => '1',
+                'url'  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/03.html',
+                'start'    => '2013-06-15',
+                'ende'     => '2013-06-15',
+                'aktiv'    => '1',
             ),
             array(
-                C::INFO_ID      => '',
-                C::INFO_USER_ID => '1',
-                C::INFO_URL_ID  => '',
-                C::URL_ADRESSE  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/01.html',
-                C::URL_START    => '2013-06-15',
-                C::URL_ENDE     => '2013-06-15',
-                C::URL_AKTIV    => '1',
+                'inserat_id'      => '',
+                'fk_fh_id' => '1',
+                'url'  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/01.html',
+                'start'    => '2013-06-15',
+                'ende'     => '2013-06-15',
+                'aktiv'    => '1',
             ),
             array(
-                C::INFO_ID      => '',
-                C::INFO_USER_ID => '1',
-                C::INFO_URL_ID  => '',
-                C::URL_ADRESSE  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/02.html',
-                C::URL_START    => '2013-06-15',
-                C::URL_ENDE     => '2013-06-15',
-                C::URL_AKTIV    => '1',
+                'inserat_id'      => '',
+                'fk_fh_id' => '1',
+                'url'  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/02.html',
+                'start'    => '2013-06-15',
+                'ende'     => '2013-06-15',
+                'aktiv'    => '1',
             ),
             array(
-                C::INFO_ID      => '',
-                C::INFO_USER_ID => '1',
-                C::INFO_URL_ID  => '',
-                C::URL_ADRESSE  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/04.html',
-                C::URL_START    => '2013-06-15',
-                C::URL_ENDE     => '2013-06-15',
-                C::URL_AKTIV    => '1',
+                'inserat_id'      => '',
+                'fk_fh_id' => '1',
+                'url'  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/04.html',
+                'start'    => '2013-06-15',
+                'ende'     => '2013-06-15',
+                'aktiv'    => '1',
             ),
             array(
-                C::INFO_ID      => '',
-                C::INFO_USER_ID => '1',
-                C::INFO_URL_ID  => '',
-                C::URL_ADRESSE  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/06.html',
-                C::URL_START    => '2013-06-15',
-                C::URL_ENDE     => '2013-06-15',
-                C::URL_AKTIV    => '1',
+                'inserat_id'      => '',
+                'fk_fh_id' => '1',
+                'url'  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/06.html',
+                'start'    => '2013-06-15',
+                'ende'     => '2013-06-15',
+                'aktiv'    => '1',
             ),
             array(
-                C::INFO_ID      => '',
-                C::INFO_USER_ID => '1',
-                C::INFO_URL_ID  => '',
-                C::URL_ADRESSE  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/07.html',
-                C::URL_START    => '2013-06-15',
-                C::URL_ENDE     => '2013-06-15',
-                C::URL_AKTIV    => '1',
+                'inserat_id'      => '',
+                'fk_fh_id' => '1',
+                'url'  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/07.html',
+                'start'    => '2013-06-15',
+                'ende'     => '2013-06-15',
+                'aktiv'    => '1',
             ),
             array(
-                C::INFO_ID      => '',
-                C::INFO_USER_ID => '1',
-                C::INFO_URL_ID  => '',
-                C::URL_ADRESSE  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/08.html',
-                C::URL_START    => '2013-06-15',
-                C::URL_ENDE     => '2013-06-15',
-                C::URL_AKTIV    => '1',
+                'inserat_id'      => '',
+                'fk_fh_id' => '1',
+
+                'url'  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/08.html',
+                'start'    => '2013-06-15',
+                'ende'     => '2013-06-15',
+                'aktiv'    => '1',
             ),
             array(
-                C::INFO_ID      => '',
-                C::INFO_USER_ID => '1',
-                C::INFO_URL_ID  => '',
-                C::URL_ADRESSE  => 'http://futhuer.de/ctv/live/infoscripte/fhs/fhs_news.php',
-                C::URL_START    => '2000-01-01',
-                C::URL_ENDE     => '2099-12-31',
-                C::URL_AKTIV    => '1',
+                'inserat_id'      => '',
+                'fk_fh_id' => '1',
+                'url'  => 'http://futhuer.de/ctv/live/infoscripte/fhs/fhs_news.php',
+                'start'    => '2000-01-01',
+                'ende'     => '2099-12-31',
+                'aktiv'    => '1',
             ),
             array(
-                C::INFO_ID      => '',
-                C::INFO_USER_ID => '1',
-                C::INFO_URL_ID  => '',
-                C::URL_ADRESSE  => 'http://futhuer.de/ctv/live/infoscripte/Wetter/wetter.php',
-                C::URL_START    => '2013-10-14',
-                C::URL_ENDE     => '2099-10-14',
-                C::URL_AKTIV    => '1',
+                'inserat_id'      => '',
+                'fk_fh_id' => '1',
+                'url'  => 'http://futhuer.de/ctv/live/infoscripte/Wetter/wetter.php',
+                'start'    => '2013-10-14',
+                'ende'     => '2099-10-14',
+                'aktiv'    => '1',
             ),
-                // </editor-fold>
+            // </editor-fold>
         );
 
         $iHyd = $this->getService(C::SERVICE_HYDRATOR_MODEL_INFOSCRIPT);
-        $uHyd = $this->getService(C::SERVICE_HYDRATOR_MODEL_URL);
-
+        $iMapper = $this->getService(C::SERVICE_MAPPER_INFOSCRIPT);
+        
         foreach ($set as $infArr) {
 
             $ifScr = $iHyd->hydrate($infArr, $this->getService(C::SERVICE_ENTITY_INFOSCRIPT));
-            $ifScr->setUrl($uHyd->hydrate($infArr, $this->getService(C::SERVICE_ENTITY_URL)));
+            $ifScr->addBildschirm(1)->addBildschirm(2)->addBildschirm(3)->addBildschirm(4);
             
-            $this->getService(C::SERVICE_INFOSCRIPT)->save($ifScr);
+            $iMapper->save($ifScr);
+
+            var_dump($ifScr);
+
         }
 
         return new ViewModel(array('content' => __METHOD__));

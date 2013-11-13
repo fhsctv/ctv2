@@ -54,15 +54,15 @@
             <?php foreach ($this->current as $value) : ?>
             <tr>
 
-                <td> <a class="btn btn-default btn-xs" href="<?= $this->urlDetails ?>">  <?php echo 'Details'    ?> </a> </td>
+                <td> <a class="btn btn-default btn-xs" href="<?= $this->urlDetails . '/id=' .$value->getInseratId() ?>">  <?php echo 'Details'    ?> </a> </td>
                 <td> <?php echo $value->getUserId()               ?>      </td>
-                <td> <?php echo $value->getUrl()->getStart();     ?>      </td>
-                <td> <?php echo $value->getUrl()->getEnde();      ?>      </td>
-                <td> <?php echo $value->getUrl()->getAktiv();     ?>      </td>
-                <td> <?php echo $value->getUrl()->getAdresse();   ?>      </td>
+                <td> <?php echo $value->getStart();     ?>      </td>
+                <td> <?php echo $value->getEnde();      ?>      </td>
+                <td> <?php echo $value->getAktiv();     ?>      </td>
+                <td> <?php echo $value->getUrl();   ?>      </td>
 
-                <td> <a class="btn btn-default btn-xs" href="<?= $this->urlEdit   . '/id=' . $value->getId()  ?>">  <?php echo 'Bearbeiten'    ?> </a> </td>
-                <td> <a class="btn btn-danger btn-xs"  href="<?= $this->urlDelete . '/id=' . $value->getId()  ?>">  <?php echo 'Löschen'       ?> </a> </td>
+                <td> <a class="btn btn-default btn-xs" href="<?= $this->urlEdit   . '/id=' . $value->getInseratId()  ?>">  <?php echo 'Bearbeiten'    ?> </a> </td>
+                <td> <a class="btn btn-danger btn-xs"  href="<?= $this->urlDelete . '/id=' . $value->getInseratId()  ?>">  <?php echo 'Löschen'       ?> </a> </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
@@ -86,15 +86,15 @@
             <?php foreach ($this->outdated as $value) : ?>
             <tr>
 
-                <td> <a class="btn btn-default btn-xs" href="<?= $this->urlDetails ?>">  <?php echo 'Details'    ?> </a> </td>
+                <td> <a class="btn btn-default btn-xs" href="<?= $this->urlDetails . '/id=' .$value->getInseratId() ?>">  <?php echo 'Details'    ?> </a> </td>
                 <td> <?php echo $value->getUserId()           ?>      </td>
-                <td> <?php echo $value->getUrl()->getStart(); ?>      </td>
-                <td> <?php echo $value->getUrl()->getEnde();  ?>      </td>
-                <td> <?php echo $value->getUrl()->getAktiv(); ?>      </td>
-                <td> <?php echo $value->getUrl()->getAdresse();   ?>      </td>
+                <td> <?php echo $value->getStart(); ?>      </td>
+                <td> <?php echo $value->getEnde();  ?>      </td>
+                <td> <?php echo $value->getAktiv(); ?>      </td>
+                <td> <?php echo $value->getUrl();   ?>      </td>
 
-                <td> <a class="btn btn-default btn-xs" href="<?= $this->urlEdit   . '/id=' . $value->getId()  ?>">  <?php echo 'Bearbeiten'    ?> </a> </td>
-                <td> <a class="btn btn-danger btn-xs"  href="<?= $this->urlDelete . '/id=' . $value->getId()  ?>">  <?php echo 'Löschen'       ?> </a> </td>
+                <td> <a class="btn btn-default btn-xs" href="<?= $this->urlEdit   . '/id=' . $value->getInseratId()  ?>">  <?php echo 'Bearbeiten'    ?> </a> </td>
+                <td> <a class="btn btn-danger btn-xs"  href="<?= $this->urlDelete . '/id=' . $value->getInseratId()  ?>">  <?php echo 'Löschen'       ?> </a> </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
@@ -119,15 +119,15 @@
             <?php foreach ($this->future as $value) : ?>
             <tr>
 
-                <td> <a class="btn btn-default btn-xs" href="<?= $this->urlDetails ?>">  <?php echo 'Details'    ?> </a> </td>
+                <td> <a class="btn btn-default btn-xs" href="<?= $this->urlDetails . '/id=' .$value->getInseratId() ?>">  <?php echo 'Details'    ?> </a> </td>
                 <td> <?php echo $value->getUserId()           ?>      </td>
-                <td> <?php echo $value->getUrl()->getStart(); ?>      </td>
-                <td> <?php echo $value->getUrl()->getEnde();  ?>      </td>
-                <td> <?php echo $value->getUrl()->getAktiv(); ?>      </td>
-                <td> <?php echo $value->getUrl()->getAdresse();   ?>      </td>
+                <td> <?php echo $value->getStart(); ?>      </td>
+                <td> <?php echo $value->getEnde();  ?>      </td>
+                <td> <?php echo $value->getAktiv(); ?>      </td>
+                <td> <?php echo $value->getUrl();   ?>      </td>
 
-                <td> <a class="btn btn-default btn-xs" href="<?= $this->urlEdit   . '/id=' . $value->getId()  ?>">  <?php echo 'Bearbeiten'    ?> </a> </td>
-                <td> <a class="btn btn-danger btn-xs"  href="<?= $this->urlDelete . '/id=' . $value->getId()  ?>">  <?php echo 'Löschen'       ?> </a> </td>
+                <td> <a class="btn btn-default btn-xs" href="<?= $this->urlEdit   . '/id=' . $value->getInseratId()  ?>">  <?php echo 'Bearbeiten'    ?> </a> </td>
+                <td> <a class="btn btn-danger btn-xs"  href="<?= $this->urlDelete . '/id=' . $value->getInseratId()  ?>">  <?php echo 'Löschen'       ?> </a> </td>
             </tr>
             <?php endforeach; ?>
         </tbody>

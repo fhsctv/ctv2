@@ -1,3 +1,79 @@
 <h2>Infoscript Details</h2>
 
-<?php echo $content ?>
+<?php
+
+    /*
+     * View- Variablen
+     * -------------------------------------------------------------------------
+     * $this->infoscript Infoscript, dessen Details angezeigt werden sollen
+     * Test mit var_dump($this->infoscript);
+     * Zugriff auf Eigenschaften über get- Methoden
+     * 
+     * $this->deleteUrl Url, die zum Löschen eines Infoscripts von einem
+     * bestimmten Bildschirm führt.
+     * inseratId und bildschirmId müssen als Parameter angehängt werden.
+     */
+
+?>
+
+
+<table class="table table-responsive table-striped table-hover">
+
+
+    <tbody>
+        <tr>
+            <th>ID</th>
+            <td><?= $this->infoscript->getInseratId(); ?></td>
+        </tr>
+        <tr>
+            <th>START</th>
+            <td><?= $this->infoscript->getStart();     ?></td>
+        </tr>
+        <tr>
+            <th>ENDE</th>
+            <td><?= $this->infoscript->getEnde();      ?></td>
+        </tr>
+            <th>URL</th>
+            <td><?= $this->infoscript->getUrl();       ?></td>
+        </tr>
+            <th>AKTIV</th>
+            <td><?= ($this->infoscript->getAktiv()) ? 'ja' : 'nein';     ?></td>
+        </tr>
+        </tr>
+            <th>BILDSCHIRME</th>
+            <td>
+                
+                <table class="table table-responsive table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID                     </th>
+                            <th>BESCHREIBUNG           </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->infoscript->getBildschirme() as $bildschirm) : ?>
+                        <tr>
+                            <td><?= $bildschirm; ?></td>
+                            <td></td>
+                            <td><a class="btn-sm btn-danger" href=" <?=$this->deleteUrl . '/id=' . $this->infoscript->getInseratId() . "/display=$bildschirm" ?> "> löschen </a></td>
+                        </tr>
+                        <?php endforeach; ?>
+                        
+                        <?php foreach ($this->bildschirme as $bildschirm) : ?>
+                        <tr>
+                            <td><?= $bildschirm; ?></td>
+                            <td></td>
+                            <td><a class="btn-sm btn-success" href=" <?=$this->addUrl . '/id=' . $this->infoscript->getInseratId() . "/display=$bildschirm" ?> "> hinzufügen </a></td>
+                        </tr>
+                        <?php endforeach; ?>
+                        
+                    </tbody>
+                </table>
+                
+            </td>
+        </tr>
+    </tbody>
+
+</table>
+
