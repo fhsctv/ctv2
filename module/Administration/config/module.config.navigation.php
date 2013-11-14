@@ -37,37 +37,37 @@ return array(
                                 'controller' => 'infoscript',
                                 'action' => 'create',
                             ),
-                            'edit' => array(
-                                'label' => 'Bearbeiten',
-                                'route' => 'administration/default',
-                                'controller' => 'infoscript',
-                                'action' => 'edit',
-                            ),
-                            'delete' => array(
-                                'label' => 'Löschen',
-                                'route' => 'administration/default',
-                                'controller' => 'infoscript',
-                                'action' => 'delete',
-                            ),
+//                            'edit' => array(
+//                                'label' => 'Bearbeiten',
+//                                'route' => 'administration/default',
+//                                'controller' => 'infoscript',
+//                                'action' => 'edit',
+//                            ),
+//                            'delete' => array(
+//                                'label' => 'Löschen',
+//                                'route' => 'administration/default',
+//                                'controller' => 'infoscript',
+//                                'action' => 'delete',
+//                            ),
                         ),
                     ),
-                    'anzeigen' => array(
-                        'label' => 'Anzeigen',
-                        'route' => 'administration/default',
-                        'controller' => 'anzeige',
-                        'action' => 'index',
-                        'pages' => array(
-                            'index' => array(
-                                'label' => 'Index',
-                                'route' => 'administration/default',
-                                'controller' => 'anzeige',
-                                'action' => 'index',
-                            ),
-                            'show' => array(
-                                'label' => 'Show',
-                                'route' => 'administration/default',
-                                'controller' => 'anzeige',
-                                'action' => 'show',
+//                    'anzeigen' => array(
+//                        'label' => 'Anzeigen',
+//                        'route' => 'administration/default',
+//                        'controller' => 'anzeige',
+//                        'action' => 'index',
+//                        'pages' => array(
+//                            'index' => array(
+//                                'label' => 'Index',
+//                                'route' => 'administration/default',
+//                                'controller' => 'anzeige',
+//                                'action' => 'index',
+//                            ),
+//                            'show' => array(
+//                                'label' => 'Show',
+//                                'route' => 'administration/default',
+//                                'controller' => 'anzeige',
+//                                'action' => 'show',
 //                                'pages' => array(
 //                                    'active' => array(
 //                                        'label' => 'Active',
@@ -108,9 +108,9 @@ return array(
 //                                'route' => 'administration/default',
 //                                'controller' => 'anzeige',
 //                                'action' => 'delete',
-                            ),
-                        ),
-                    ),
+//                            ),
+//                        ),
+//                    ),
                 )
             ),
         ),

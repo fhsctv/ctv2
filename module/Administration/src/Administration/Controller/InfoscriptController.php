@@ -89,7 +89,7 @@ class InfoscriptController extends AbstractController {
 
         $id = $this->params('id');
 
-        if(empty($id)) {
+        if(!$id) {
             return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
         }
 
@@ -108,7 +108,7 @@ class InfoscriptController extends AbstractController {
         $service->save($changed);
 
         $this->flashMessenger()->addSuccessMessage(self::FLASHMESSENGER_EDIT_SUCCESS);
-        return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
+        return $this->redirect()->toRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DETAILS, 'id'=>$changed->getInseratId()));
     }
 
     public function deleteAction() {
@@ -141,7 +141,7 @@ class InfoscriptController extends AbstractController {
         $id = (int) $this->params('id', NULL);
         
         if(!$id){
-            throw new \Exception('Nicht vorhanden. Bitte benutzen sie den \'Details- Button\' in der Übersicht');
+            return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
         }
         
         $infoscript  = $this->getService(C::SERVICE_INFOSCRIPT)->getById($id);

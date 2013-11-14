@@ -11,12 +11,22 @@ namespace Administration\Controller;
 
 use Zend\View\Model\ViewModel;
 
+use Base\Constants as C;
+
 class IndexController extends AbstractController
 {
     public function indexAction()
     {
         $content = __METHOD__;
 
+        
+        $table = $this->getService(C::SERVICE_TABLE_BILDSCHIRM);
+        
+        $resultSet = $table->fetchAll();
+        
+        foreach ($resultSet as $value) {
+            var_dump($value);
+        }
         
         return new ViewModel(array('content' => $content));
     }
