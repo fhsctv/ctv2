@@ -1,0 +1,61 @@
+<h2>Benutzerregistrierung</h2>
+
+
+<!-- -----------------------------------------------------.. FEHLERMELDUNGEN -->
+<?php if($this->errorMessages) : ?>
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        Fehler:
+    </div>
+    <div class="panel-body">
+        <ul>
+        <?php foreach ($this->errorMessages as $error) : ?>
+            <li> <?= $error ?>   </li>
+
+        <?php endforeach; ?>
+        </ul>
+    </div>
+</div>
+<?php endif; ?>
+
+
+
+
+<div class="row">
+
+    <div class="col-md-12">
+        <p>Auf CampusTV können sich verschiedene Benutzergruppen anmelden.</p>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-12">
+        
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Bitte wählen Sie Ihre Gruppe:
+            </div>
+            <div class="panel-body">
+                <div class="form">
+                    
+                    <?php $this->form->prepare(); ?>
+                    
+                    <?php echo $this->form()->openTag($this->form) ?>
+
+                    <?php echo $this->formCollection($this->form); ?>
+
+                    <?php echo $this->form()->closeTag($this->form) ?>
+
+
+                </div>
+                
+                
+            </div>
+                
+        </div>
+        
+    </div>
+
+</div>

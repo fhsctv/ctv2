@@ -20,6 +20,15 @@ class IndexController extends AbstractController
         $content = __METHOD__;
 
         
+        
+        $hasFilter = new \Zend\Stdlib\Hydrator\Filter\HasFilter();
+        
+        var_dump($hasFilter->filter('hash_tag'));
+        
+        
+        
+        
+        
         $table = $this->getService(C::SERVICE_TABLE_BILDSCHIRM);
         
         $resultSet = $table->fetchAll();
