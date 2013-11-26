@@ -161,12 +161,16 @@ class InfoscriptController extends AbstractController {
                 'deleteUrl'   => $deleteUrl,
                 'bildschirme' => $addBildschirme,
                 'addUrl'      => $addUrl,
+                
+                'msgSuccess' => $this->flashMessenger()->getCurrentSuccessMessages(),
+                'msgInfo'    => $this->flashMessenger()->getCurrentInfoMessages(),
+                'msgError'   => $this->flashMessenger()->getCurrentErrorMessages(),
             )
         );
     }
 
     
-    //TODO Auslagern in eigenen Display- Controller
+    //TODO Auslagern in eigenen Display- Controller mit redirect GET Parameter
     public function deleteFromDisplayAction(){
         
         $inseratId    = (int) $this->params('id', null);
@@ -176,23 +180,14 @@ class InfoscriptController extends AbstractController {
             return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
         }
         
-        $infoscript = $this->getService(C::SERVICE_INFOSCRIPT)->getById($inseratId);
         
-        if(!$this->dataReceived()) {
-            return new ViewModel(
-                array(
-                    'form'       => $this->getService(C::SERVICE_FORM_DELETE),
-                    'id'         => $inseratId,
-                    'urlDelete'  => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DELETE_DISPLAY, 'id' => $inseratId, 'display' => $bildschirmId)),
-                    'infoscript' => $infoscript,
-                    ));
-        }
+        $this->getServiceLocator()->get(C::SERVICE_DISPLAYLINK)->delete($inseratId, $bildschirmId);
         
-        $table = $this->getService(C::SERVICE_TABLE_INSERATBILDSCHIRMLINKER);
-        $table->delete($inseratId, $bildschirmId);
+        $this->flashMessenger()->addSuccessMessage('Bildschirm erfolgreich entfernt!');
 
-        
         return $this->redirect()->toRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DETAILS, 'id' => $inseratId));
+        
+        
         
     }
     
@@ -205,9 +200,9 @@ class InfoscriptController extends AbstractController {
             return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
         }
         
-        $table = $this->getService(C::SERVICE_TABLE_INSERATBILDSCHIRMLINKER);
-        $table->insert(array('inserat_id' => $inseratId, 'bildschirm_id' => $bildschirmId));
+        $this->getService(C::SERVICE_DISPLAYLINK)->add($inseratId, $bildschirmId);
         
+        $this->flashMessenger()->addSuccessMessage('Bildschirm erfolgreich hinzugefügt');
         
         return $this->redirect()->toRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DETAILS, 'id' => $inseratId));
         

@@ -10,6 +10,11 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.2.*",
-	"zf-commons/zfc-user": "dev-master"
+	"zf-commons/zfc-user": "dev-master",
+        "websafe/zf-mod-zfc-user-i18n-de-de": "dev-master",
+	"cdli/CdliTwoStageSignup": "dev-master",
+        "bjyoungblood/bjy-authorize": "1.4.*",
+	"bjyoungblood/bjy-profiler" : "dev-master",
+        "zendframework/zend-developer-tools": "dev-master"
     }
 }

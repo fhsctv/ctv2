@@ -1,0 +1,27 @@
+<h2>Willkommen, <?= $this->user->getName(); ?> </h2>
+
+<div class="row row-fluid">
+
+    <div class="col-md-6">
+        <?php echo $this->partial('fachhochschule/index/partial/panel/user-data.phtml', ['user' => $this->user]); ?>
+    </div>
+
+    <div class="col-md-6">
+        <?php echo $this->partial('fachhochschule/index/partial/panel/user-settings.phtml', ['user' => $this->user]); ?>
+    </div>
+
+</div>
+
+
+
+
+<?php
+echo $this->partial('fachhochschule/index/partial/infoscript.phtml', [
+    'user' => $this->user, 
+    'current' => $this->current, 
+    'future' => $this->future, 
+    'outdated' => $this->outdated,
+    
+    'actionUrls' => $this->actionUrls,
+]);
+?>

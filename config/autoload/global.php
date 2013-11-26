@@ -23,7 +23,12 @@ $service_manager = array(
     ),
 );
 
+
+
 return array(
     'db'              => $db,
     'service_manager' => $service_manager,
+    'translator' => array(
+        'locale'  => 'de_DE',
+    ),
 );

@@ -1,0 +1,39 @@
+<div class="bg" style="background-image: url('/img/bg.jpg')">
+  <div class="header">
+    <div class="headline">
+      <div class="datum">
+        <?php echo date("d.m.Y") ?>
+      </div>
+      <div class="titel">
+        <?php echo $this->headline."<br>"; ?>
+      </div>
+      <div class="uhr">
+
+      </div>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="col-md-12">
+      <div class="liste">
+        <div class="panel panel-ctv">
+          <div class="panel-heading">
+            <h3 class="panel-title"><?php echo $this->titel; ?></h3>
+          </div>
+          <div class="panel-body" font-size="5px">
+            <div class="text">
+              <?php echo $this->text; ?>
+            </div>
+            <div class="liste">
+              <ul>
+              <?php echo $this->liste; ?>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom">powered by www.fh-schmalkalden.de</div>
+</div>
+
+    

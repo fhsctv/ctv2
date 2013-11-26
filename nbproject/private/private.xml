@@ -10,7 +10,11 @@
             <file>file:/var/www/html/ctv2/module/Administration/src/Administration/Controller/IndexController.php</file>
         </group>
         <group name="CTV">
+            <file>file:/var/www/html/ctv2/</file>
+            <file>file:/var/www/html/ctv2/config/autoload/bjyauthorize.global.php</file>
             <file>file:/var/www/html/ctv2/config/application.config.php</file>
+            <file>file:/var/www/html/ctv2/module/Base/Module.php</file>
+            <file>file:/var/www/html/ctv2/module/Base/src/Base/Constants.php</file>
         </group>
     </open-files>
 </project-private>
