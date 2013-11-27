@@ -33,5 +33,22 @@ class CreateController extends AbstractController {
         
         return [];      
     }
+    
+    /**
+     * Wird genutzt um ein Infoscript mit dem Template Info zu erzeugen
+     */
+    public function createInfoAction(){
+      
+      $form = new \Fachhochschule\Form\Info();
+      
+      return new ViewModel(
+              // [] ist eine neue notation für array() seit php 5.4.x
+              [
+                  'form' => $form,
+              ]
+      );
+      
+      
+    }
 
 }

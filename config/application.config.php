@@ -5,7 +5,7 @@ return array(
         'ZfcBase',
         'ZfcUser',
         'WebsafeZfModZfcUserI18nDeDe', //Übersetzung auf Deutsch
-        'BjyAuthorize',
+        #'BjyAuthorize',
         'BjyProfiler',
         'ZendDeveloperTools',
 //        'CdliTwoStageSignup',
@@ -15,7 +15,7 @@ return array(
         #'Company',
         'Administration',
         'Fachhochschule',
-//        'Generator',
+        'Generator',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

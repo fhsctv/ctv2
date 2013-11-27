@@ -1,0 +1,14 @@
+<h2>Infoscript erstellen</h2>
+<h3>Info Template gewählt</h3>
+
+
+<?php $this->form->prepare();                   ?>
+
+<?php echo $this->form()->openTag($this->form)  ?>
+
+<?php echo $this->formCollection($this->form);  ?>
+
+<?php echo $this->formRow($this->form->getTitel());  //nur titel ausgeben, wenn es mehrere elemente / textboxen gibt ?>
+
+<?php echo $this->form()->closeTag($this->form) ?>
+

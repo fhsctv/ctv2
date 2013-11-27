@@ -28,7 +28,7 @@ class IndexController extends AbstractController
         //hole nur 1 infoscript mit Id 1
         $infoscript = $infoscriptService->getById(1);
         
-        $infoscript->setTitle('Mein toller InfoscriptTitel');
+        $infoscript->setTitel('Mein toller InfoscriptTitel');
         
         $headline = "Liste Template";
         
@@ -40,7 +40,7 @@ class IndexController extends AbstractController
           <li>nummer 2</li>
           <li>nummer 3</li>";
         
-        return new ViewModel(
+        return $this->disableLayout( new ViewModel(
                 array(
                   'content' => $content,
                   'infoscript' => $infoscript,
@@ -48,12 +48,48 @@ class IndexController extends AbstractController
                   'titel' => $titel,
                   'text' => $text,
                   'liste' => $liste,
-                ));
+                )));
+    }
+    
+    
+    public function listeAction()
+    {
+        $content = __METHOD__;
+
+
+        
+        //beispiel infoscripte
+        
+        $infoscriptService = $this->getService(C::SERVICE_INFOSCRIPT);
+        
+        //hole nur 1 infoscript mit Id 1
+        $infoscript = $infoscriptService->getById(1);
+        
+        $infoscript->setTitel('Mein toller InfoscriptTitel');
+        
+        $headline = "Liste Template";
+        
+        $titel = "Das ist der Titel";
+        
+        $text = "Hier kommt der Text <br> Text <br> Text";
+        
+        $liste = "<li>hier kommt eine liste von Daten</li>
+          <li>nummer 2</li>
+          <li>nummer 3</li>";
+        
+        return $this->disableLayout(new ViewModel(
+                array(
+                  'content' => $content,
+                  'infoscript' => $infoscript,
+                  'headline' => $headline,
+                  'titel' => $titel,
+                  'text' => $text,
+                  'liste' => $liste,
+                )));
     }
     
     public function infoAction()
     {
-      $info_content = __METHOD__;
       
       $info_headline = "info Template";
       
@@ -61,13 +97,12 @@ class IndexController extends AbstractController
       
       $info_text = "Hier kommt der Text <br> bla bla <br> text";
       
-      return new ViewModel(
+      return $this->disableLayout( new ViewModel(
               array(
-                  'content' => $info_content,
                   'headline' => $info_headline,
                   'titel' => $info_titel,
                   'text'  => $info_text,
-              ));
+              )));
     }
     
     public function tabelleAction()
@@ -86,7 +121,7 @@ class IndexController extends AbstractController
       
       $discription = "Hier steht die Beschreibung etz.";
       
-      return new ViewModel(
+      return $this->disableLayout( new ViewModel(
               array(
                   'content' => $content,
                   'headline' => $headline,
@@ -95,7 +130,7 @@ class IndexController extends AbstractController
                   'titel_right' => $titel_right,
                   'text_right'  => $text_right,
                   'discription' => $discription,
-              ));
+              )));
     }
     public function bildAction()
     {
@@ -105,12 +140,12 @@ class IndexController extends AbstractController
       
       $bild = "http://press.tape.tv/wp-content/uploads/2013/02/Download.png";
       
-      return new ViewModel(
+      return $this->disableLayout( new ViewModel(
               array(
                   'content' => $content,
                   'headline' => $headline,
                   'bild' => $bild,
-              ));
+              )));
     }
 
 }

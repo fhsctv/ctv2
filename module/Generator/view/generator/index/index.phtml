@@ -1,4 +1,13 @@
-<div class="bg" style="background-image: url('/img/generator/bg.jpg')">
+<?php echo $this->doctype(); ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Liste Template</title>
+	<link href="/css/generator/liste.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+  <div class="bg" style="background-image: url('/img/generator/bg.jpg')">
   <div class="header">
     <div class="headline">
       <div class="datum">
@@ -35,5 +44,8 @@
   </div>
   <div class="bottom">powered by www.fh-schmalkalden.de</div>
 </div>
+        <?php echo $this->inlineScript() ?>
+</body>
+</html>
 
     
