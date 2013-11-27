@@ -15,6 +15,7 @@
 	"cdli/CdliTwoStageSignup": "dev-master",
         "bjyoungblood/bjy-authorize": "1.4.*",
 	"bjyoungblood/bjy-profiler" : "dev-master",
+	"mwillbanks/zfc-twitter-bootstrap": "@dev",
         "zendframework/zend-developer-tools": "dev-master"
     }
 }

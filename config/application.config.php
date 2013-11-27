@@ -2,10 +2,11 @@
 return array(
     // This should be an array of module namespaces used in the application.
     'modules' => array(
+        'ZfcTwitterBootstrap',
         'ZfcBase',
         'ZfcUser',
         'WebsafeZfModZfcUserI18nDeDe', //Übersetzung auf Deutsch
-        'BjyAuthorize',
+        #'BjyAuthorize',
         'BjyProfiler',
         'ZendDeveloperTools',
 //        'CdliTwoStageSignup',
@@ -15,7 +16,7 @@ return array(
         #'Company',
         'Administration',
         'Fachhochschule',
-//        'Generator',
+        #'Generator',
     ),
 
     // These are various options for the listeners attached to the ModuleManager
