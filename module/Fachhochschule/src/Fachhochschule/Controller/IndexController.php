@@ -40,11 +40,12 @@ class IndexController extends AbstractController
         $info = $infoService->getByUserId($user->getUserId());
         
         $actionUrls = [
-            'details' => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DETAILS)),
-            'create'  => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_CREATE)),
-            'edit'    => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_EDIT)),
-            'delete'  => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DELETE)),
-            
+            'details'        => $this->url()->fromRoute(self::ROUTE, ['controller' => self::CONTROLLER, 'action' => self::ACTION_DETAILS]),
+            'create'         => $this->url()->fromRoute(self::ROUTE, ['controller' => self::CONTROLLER, 'action' => self::ACTION_CREATE]),
+            'edit'           => $this->url()->fromRoute(self::ROUTE, ['controller' => self::CONTROLLER, 'action' => self::ACTION_EDIT]),
+            'delete'         => $this->url()->fromRoute(self::ROUTE, ['controller' => self::CONTROLLER, 'action' => self::ACTION_DELETE]),
+            'changeMail'     => $this->url()->fromRoute('zfcuser/changeemail'),
+            'changePassword' => $this->url()->fromRoute('zfcuser/changepassword'),
         ];
         
         return [

@@ -15,6 +15,6 @@ class IndexController extends AbstractController
 {
     public function indexAction() {
         
-        return $this->redirect()->toRoute('administration/default', ['controller' => 'infoscript', 'action' => 'show']);
+        //return $this->redirect()->toRoute('administration/default', ['controller' => 'infoscript', 'action' => 'show']);
     }
 }
