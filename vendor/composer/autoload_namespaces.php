@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'ZfcUser' => array($vendorDir . '/zf-commons/zfc-user/src'),
+    'ZfcTwitterBootstrap' => array($vendorDir . '/mwillbanks/zfc-twitter-bootstrap/src'),
     'ZfcBase' => array($vendorDir . '/zf-commons/zfc-base/src'),
     'Zend\\' => array($vendorDir . '/zendframework/zendframework/library'),
     'ZendDeveloperTools' => array($vendorDir . '/zendframework/zend-developer-tools/src'),

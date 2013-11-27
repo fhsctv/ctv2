@@ -548,5 +548,58 @@
             "zdt",
             "zf2"
         ]
+    },
+    {
+        "name": "mwillbanks/zfc-twitter-bootstrap",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/mwillbanks/ZfcTwitterBootstrap.git",
+            "reference": "e3ee2072dfe6be0b862102a84dc0c26bba655cf4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/mwillbanks/ZfcTwitterBootstrap/zipball/e3ee2072dfe6be0b862102a84dc0c26bba655cf4",
+            "reference": "e3ee2072dfe6be0b862102a84dc0c26bba655cf4",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3",
+            "zendframework/zend-filter": "2.*",
+            "zendframework/zend-form": "2.*",
+            "zendframework/zend-navigation": "2.*",
+            "zendframework/zend-view": "2.*"
+        },
+        "require-dev": {
+            "phpunit/phpunit": ">=3.7.7",
+            "zendframework/zendframework": "2.*"
+        },
+        "time": "2013-07-23 19:40:34",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "ZfcTwitterBootstrap": "src/"
+            },
+            "classmap": [
+                "./"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "authors": [
+            {
+                "name": "Mike Willbanks",
+                "email": "mike@digitalstruct.com",
+                "homepage": "http://blog.digitalstruct.com/"
+            }
+        ],
+        "description": "A module that assists in implementing Twitter Bootstrap for ZF2",
+        "homepage": "https://github.com/mwillbanks/ZfcTwitterBootstrap",
+        "keywords": [
+            "twBootstrap",
+            "twitter bootstrap",
+            "zf2"
+        ]
     }
 ]

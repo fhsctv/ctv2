@@ -4,7 +4,7 @@ namespace Administration\Controller;
 
 use Zend\View\Model\ViewModel;
 
-use Base\Service\Iterator\Filter\Url as Filter;
+use Base\Service\Iterator\Filter\Inserat as Filter;
 
 use Base\Constants as C;
 
@@ -28,7 +28,6 @@ class InfoscriptController extends AbstractController {
 
     public function indexAction() {
 
-
         return $this->forward()->dispatch($this->params('controller'),
                 array('action' => self::ACTION_SHOW));
 
@@ -40,7 +39,6 @@ class InfoscriptController extends AbstractController {
         //            )
         //        );
         // </editor-fold>
-
     }
 
     public function showAction() {
@@ -49,12 +47,16 @@ class InfoscriptController extends AbstractController {
 
         $infoscript = $service->fetchAll();
 
-        return new ViewModel(
+        $actionUrls = [
+            'details' => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DETAILS)),
+            'create'  => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_CREATE)),
+            'edit'    => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_EDIT)),
+            'delete'  => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DELETE)),
+        ];
+        
+        $viewModel = new ViewModel(
                 array(
-                    'urlDetails' => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DETAILS)),
-                    'urlCreate'  => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_CREATE)),
-                    'urlEdit'    => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_EDIT)),
-                    'urlDelete'  => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DELETE)),
+                    'actionUrls' => $actionUrls,
 
                     'msgSuccess' => $this->flashMessenger()->getCurrentSuccessMessages(),
                     'msgInfo'    => $this->flashMessenger()->getCurrentInfoMessages(),
@@ -63,8 +65,13 @@ class InfoscriptController extends AbstractController {
                     'current'    => new Filter\Current($infoscript),
                     'outdated'   => new Filter\Outdated($infoscript),
                     'future'     => new Filter\Future($infoscript),
+                    'inactive'   => new Filter\Inactive($infoscript),
                 )
         );
+        
+        $viewModel->setTemplate('/base/infoscript/show.phtml');
+        
+        return $viewModel;
     }
 
     public function createAction() {
@@ -75,9 +82,10 @@ class InfoscriptController extends AbstractController {
         $infoscript = $service->createInfoscriptFromForm($form, $this->getRequest());
 
         if (!$infoscript) {
-            return new ViewModel(array('form' => $form));
+            $viewModel = new ViewModel(['form' => $form]);
+            
+            return $viewModel->setTemplate('/base/infoscript/create');
         }
-
 
         $service->save($infoscript);
 
@@ -102,7 +110,9 @@ class InfoscriptController extends AbstractController {
         $changed = $service->createInfoscriptFromForm($form, $this->getRequest());
 
         if (!$changed) {
-            return new ViewModel(array('form' => $form));
+            $viewModel = new ViewModel(array('form' => $form));
+            
+            return $viewModel->setTemplate('/base/infoscript/edit');
         }
 
         $service->save($changed);
@@ -122,15 +132,20 @@ class InfoscriptController extends AbstractController {
         $infoscript = $this->getService(C::SERVICE_MAPPER_INFOSCRIPT)->getById($id);
 
         if(!$this->dataReceived()) {
-            return new ViewModel(
-                array(
+            
+            $viewModel = new ViewModel (
+                [
                     'form'       => $this->getService(C::SERVICE_FORM_DELETE),
                     'id'         => $id,
                     'urlDelete'  => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DELETE, 'id' => $id)),
-                    'infoscript' => $infoscript,));
+                    'infoscript' => $infoscript,
+                ]
+            );
+            
+            return $viewModel->setTemplate('/base/infoscript/delete.phtml');
         }
 
-        $this->getService(C::SERVICE_MAPPER_INFOSCRIPT)->delete($infoscript, $this->getRequest(), $this->flashMessenger());
+        $this->getService(C::SERVICE_INFOSCRIPT)->delete($infoscript, $this->getRequest(), $this->flashMessenger());
 
         return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
         
@@ -152,21 +167,24 @@ class InfoscriptController extends AbstractController {
         //TODO von Datenbank holen
         $bildschirme = array(1, 2, 3, 4);
         
+        
         $addBildschirme = array_diff($bildschirme, $infoscript->getBildschirme());
 
 
-        return new ViewModel(
+        $viewModel = new ViewModel(
             array(
                 'infoscript'  => $infoscript,
                 'deleteUrl'   => $deleteUrl,
                 'bildschirme' => $addBildschirme,
                 'addUrl'      => $addUrl,
-                
+                                
                 'msgSuccess' => $this->flashMessenger()->getCurrentSuccessMessages(),
                 'msgInfo'    => $this->flashMessenger()->getCurrentInfoMessages(),
                 'msgError'   => $this->flashMessenger()->getCurrentErrorMessages(),
             )
         );
+        
+        return $viewModel->setTemplate('/base/infoscript/details.phtml');
     }
 
     
@@ -337,13 +355,24 @@ class InfoscriptController extends AbstractController {
             $ifScr = $iHyd->hydrate($infArr, $this->getService(C::SERVICE_ENTITY_INFOSCRIPT));
             $ifScr->addBildschirm(1)->addBildschirm(2)->addBildschirm(3)->addBildschirm(4);
             
-            $iMapper->save($ifScr);
+            try {
+                $id = $iMapper->save($ifScr);
+                $id = $id->getInseratId();
 
-            var_dump($ifScr);
-
+                $this->flashMessenger()->addSuccessMessage("Infoscript mit der Id $id erfolgreich importiert");
+            }
+            catch (\Exception $e) {
+                
+                if($e->getPrevious()->getCode() === '23505') {
+                    $this->flashMessenger()->addErrorMessage("Das Infoscript ist bereits vorhanden");
+                } else {
+                    $this->flashMessenger()->addErrorMessage($e->getPrevious()->getMessage());
+                }
+                
+            }
         }
 
-        return new ViewModel(array('content' => __METHOD__));
+        
+        return $this->redirect()->toRoute(self::ROUTE, ['controller' => self::CONTROLLER, 'action' => self::ACTION_SHOW] );
     }
-
 }

@@ -9,35 +9,12 @@
 
 namespace Administration\Controller;
 
-use Zend\View\Model\ViewModel;
-
 use Base\Constants as C;
 
 class IndexController extends AbstractController
 {
-    public function indexAction()
-    {
-        $content = __METHOD__;
-
+    public function indexAction() {
         
-        
-        $hasFilter = new \Zend\Stdlib\Hydrator\Filter\HasFilter();
-        
-        var_dump($hasFilter->filter('hash_tag'));
-        
-        
-        
-        
-        
-        $table = $this->getService(C::SERVICE_TABLE_BILDSCHIRM);
-        
-        $resultSet = $table->fetchAll();
-        
-        foreach ($resultSet as $value) {
-            var_dump($value);
-        }
-        
-        return new ViewModel(array('content' => $content));
+        return $this->redirect()->toRoute('administration/default', ['controller' => 'infoscript', 'action' => 'show']);
     }
-
 }

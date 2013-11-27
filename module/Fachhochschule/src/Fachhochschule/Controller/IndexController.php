@@ -12,6 +12,7 @@ namespace Fachhochschule\Controller;
 use Zend\View\Model\ViewModel;
 
 use Base\Constants as C;
+use Base\Service\Iterator\Filter\Inserat as Filter;
 
 class IndexController extends AbstractController
 {
@@ -38,10 +39,6 @@ class IndexController extends AbstractController
         $user = $userMapper->getById($userId);
         $info = $infoService->getByUserId($user->getUserId());
         
-        $current  = new \Base\Service\Iterator\Filter\Url\Current($info);
-        $future   = new \Base\Service\Iterator\Filter\Url\Future($info);
-        $outdated = new \Base\Service\Iterator\Filter\Url\Outdated($info);
-        
         $actionUrls = [
             'details' => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DETAILS)),
             'create'  => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_CREATE)),
@@ -59,9 +56,11 @@ class IndexController extends AbstractController
             'msgInfo'    => $this->flashMessenger()->getCurrentInfoMessages(),
             'msgError'   => $this->flashMessenger()->getCurrentErrorMessages(),
             
-            'current'  => $current,
-            'future'   => $future,
-            'outdated' => $outdated,
+            'current'  => new Filter\Current($info),
+            'future'   => new Filter\Future($info),
+            'outdated' => new Filter\Outdated($info),
+            'inactive' => new Filter\Inactive($info),
+            
         ];
     }
 

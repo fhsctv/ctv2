@@ -4,7 +4,7 @@ namespace Fachhochschule\Controller;
 
 use Zend\View\Model\ViewModel;
 
-use Base\Service\Iterator\Filter\Url as Filter;
+use Base\Service\Iterator\Filter\Inserat as Filter;
 
 use Base\Constants as C;
 
