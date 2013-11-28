@@ -16,7 +16,7 @@ return array(
         #'Company',
         'Administration',
         'Fachhochschule',
-        #'Generator',
+        'Generator',
     ),
 
     // These are various options for the listeners attached to the ModuleManager
