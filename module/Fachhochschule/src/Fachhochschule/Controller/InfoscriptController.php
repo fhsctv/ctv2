@@ -170,8 +170,12 @@ class InfoscriptController extends AbstractController {
         $deleteUrl   = $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DELETE_DISPLAY));
         $addUrl      = $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_ADD_DISPLAY));
         
-        //TODO von Datenbank holen
-        $bildschirme = array(1, 2, 3, 4);
+        $bildschirmResultSet = $this->getServiceLocator()->get(C::SERVICE_TABLE_BILDSCHIRM)->fetchAll();
+        
+        $bildschirme = [];
+        foreach ($bildschirmResultSet as $bildschirm) {
+            array_push($bildschirme, $bildschirm);
+        }
         
         $addBildschirme = array_diff($bildschirme, $infoscript->getBildschirme());
 
@@ -203,10 +207,12 @@ class InfoscriptController extends AbstractController {
             return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
         }
         
-        $table = $this->getService(C::SERVICE_TABLE_INSERATBILDSCHIRMLINKER);
-        $table->delete($inseratId, $bildschirmId);
         
-        return $this->redirect()->toRoute([self::ROUTE, 'controller' => self::CONTROLLER, 'action' => self::ACTION_DETAILS, 'id' => $inseratId]);
+        $this->getServiceLocator()->get(C::SERVICE_DISPLAYLINK)->delete($inseratId, $bildschirmId);
+        
+        $this->flashMessenger()->addSuccessMessage('Bildschirm erfolgreich entfernt!');
+
+        return $this->redirect()->toRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DETAILS, 'id' => $inseratId));
     }
     
     public function addToDisplayAction(){
@@ -218,12 +224,11 @@ class InfoscriptController extends AbstractController {
             return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
         }
         
-        $table = $this->getService(C::SERVICE_TABLE_INSERATBILDSCHIRMLINKER);
-        $table->insert(['inserat_id' => $inseratId, 'bildschirm_id' => $bildschirmId]);
+        $this->getService(C::SERVICE_DISPLAYLINK)->add($inseratId, $bildschirmId);
         
+        $this->flashMessenger()->addSuccessMessage('Bildschirm erfolgreich hinzugefügt');
         
-        return $this->redirect()->toRoute(self::ROUTE, ['controller' => self::CONTROLLER, 'action' => self::ACTION_DETAILS, 'id' => $inseratId]);
-        
+        return $this->redirect()->toRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DETAILS, 'id' => $inseratId));
     }
     //ENDTODO
 

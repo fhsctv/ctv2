@@ -9,6 +9,9 @@
             <file>file:/var/www/html/ctv2/module/Application/view/application/index/index.phtml</file>
             <file>file:/var/www/html/ctv2/module/Administration/src/Administration/Controller/IndexController.php</file>
         </group>
-        <group name="CTV"/>
+        <group name="CTV">
+            <file>file:/var/www/html/ctv2/module/Base/src/Base/Model/Entity/Infoscript.php</file>
+            <file>file:/var/www/html/ctv2/module/Base/src/Base/Model/Entity/TextLine.php</file>
+        </group>
     </open-files>
 </project-private>

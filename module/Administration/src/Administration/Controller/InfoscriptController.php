@@ -164,10 +164,16 @@ class InfoscriptController extends AbstractController {
         $deleteUrl   = $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DELETE_DISPLAY));
         $addUrl      = $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_ADD_DISPLAY));
         
-        //TODO von Datenbank holen
-        $bildschirme = array(1, 2, 3, 4);
+        $bildschirmResultSet = $this->getServiceLocator()->get(C::SERVICE_TABLE_BILDSCHIRM)->fetchAll();
         
+        $bildschirme = [];
+        foreach ($bildschirmResultSet as $bildschirm) {
+            array_push($bildschirme, $bildschirm);
+        }
         
+        /**
+         * array
+         */
         $addBildschirme = array_diff($bildschirme, $infoscript->getBildschirme());
 
 
