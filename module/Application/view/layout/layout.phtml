@@ -38,9 +38,6 @@
                     <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/zf2-logo.png') ?>" alt="Zend Framework 2"/>&nbsp;<?php echo $this->translate('FHS CampusTV') ?></a>
                 </div>
                 <div class="collapse navbar-collapse dropdown">
-<!--                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
-                    </ul>-->
                     <?php echo $this->navigation('navigation')->menu()->setUlClass('nav navbar-nav')->setMaxDepth(0); ?>
                 </div><!--/.nav-collapse -->
             </div>
@@ -58,10 +55,10 @@
                     <div class="col-md-8 breadcrumb">
                          Sie sind hier: <?php echo $this->navigation('navigation')->breadcrumbs()->setMinDepth(0); ?>
                     </div>
-                    
+
                     <?php if(isset($this->tasks)) : ?>
                             <div class="col-md-8 breadcrumb">
-                                    Aufgaben: 
+                                    Aufgaben:
                                 <?php   foreach($this->tasks as $task): ?>
                                              <a href='<?= $task['target']?> '> <img src='<?= $task['icon'] ?> '> </a>
                                 <?php   endforeach; ?>

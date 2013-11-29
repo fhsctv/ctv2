@@ -14,9 +14,8 @@ use Zend\View\Model\ViewModel;
 use Base\Constants as C;
 use Base\Service\Iterator\Filter\Inserat as Filter;
 
-class IndexController extends AbstractController
-{
-    
+class IndexController extends AbstractController {
+
     const ROUTE                          = 'fachhochschule/default';
     const CONTROLLER                     = 'infoscript';
     const ACTION_INDEX                   = 'index';
@@ -27,40 +26,36 @@ class IndexController extends AbstractController
     const ACTION_DELETE                  = 'delete';
     const ACTION_DELETE_DISPLAY          = 'delete-from-display';
     const ACTION_ADD_DISPLAY             = 'add-to-display';
-    
-    
+
+
     public function indexAction() {
-       
+
         $userId = $this->zfcUserAuthentication()->getIdentity()->getId();
-        
+
         $userMapper  = $this->getServiceLocator()->get(C::SM_MAPPER_FACHHOCHSCHULE);
-        $infoService = $this->getServiceLocator()->get(C::SERVICE_INFOSCRIPT);
-        
+
         $user = $userMapper->getById($userId);
-        $info = $infoService->getByUserId($user->getUserId());
-        
+
+        $infoWidget = $this->forward()->dispatch('Base\Controller\Infoscript', ['controller' => 'infoscript', 'action' => 'show', 'id' => $userId]);
+
         $actionUrls = [
-            'details'        => $this->url()->fromRoute(self::ROUTE, ['controller' => self::CONTROLLER, 'action' => self::ACTION_DETAILS]),
-            'create'         => $this->url()->fromRoute(self::ROUTE, ['controller' => self::CONTROLLER, 'action' => self::ACTION_CREATE]),
-            'edit'           => $this->url()->fromRoute(self::ROUTE, ['controller' => self::CONTROLLER, 'action' => self::ACTION_EDIT]),
-            'delete'         => $this->url()->fromRoute(self::ROUTE, ['controller' => self::CONTROLLER, 'action' => self::ACTION_DELETE]),
             'changeMail'     => $this->url()->fromRoute('zfcuser/changeemail'),
             'changePassword' => $this->url()->fromRoute('zfcuser/changepassword'),
         ];
-        
-        return [
-            'user' => $user,
-            
-            'actionUrls' => $actionUrls,
 
-            'messages'   => $this->flashMessenger(),
-            
-            'current'  => new Filter\Current($info),
-            'future'   => new Filter\Future($info),
-            'outdated' => new Filter\Outdated($info),
-            'inactive' => new Filter\Inactive($info),
-            
-        ];
+        $viewModel = new ViewModel(
+            [
+                'user' => $user,
+
+                'actionUrls' => $actionUrls,
+
+                'messages'   => $this->flashMessenger(),
+            ]
+        );
+
+        $viewModel->addChild($infoWidget, 'infoWidget');
+
+        return $viewModel;
     }
 
 }
