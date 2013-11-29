@@ -7,7 +7,7 @@ return array(
             'Ctvuser\Controller\Ctvuser'        => 'Ctvuser\Controller\CtvuserController',
             'Ctvuser\Controller\Register'    => 'Ctvuser\Controller\RegisterController',
             'Ctvuser\Controller\User'        => 'Ctvuser\Controller\UserController',
-            //TODO ADD MORE CONTROLLERS
+            //:HINT ADD MORE CONTROLLERS
         ),
     )
 );

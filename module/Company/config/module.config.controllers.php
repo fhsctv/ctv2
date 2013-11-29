@@ -6,7 +6,7 @@ return array(
             'Company\Controller\Index'   => 'Company\Controller\IndexController',
             'Company\Controller\Account' => 'Company\Controller\AccountController',
             'Company\Controller\Anzeige' => 'Company\Controller\AnzeigeController',
-            //TODO ADD MORE CONTROLLERS
+            //:HINT ADD MORE CONTROLLERS
         ),
     )
 );

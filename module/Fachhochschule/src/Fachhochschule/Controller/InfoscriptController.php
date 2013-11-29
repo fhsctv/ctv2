@@ -46,25 +46,23 @@ class InfoscriptController extends AbstractController {
     public function showAction() {
 
         $service = $this->getServiceLocator()->get(C::SERVICE_INFOSCRIPT);
-        
-        
+
+
         $infoscript = $service->getByUserId($this->zfcUserAuthentication()->getIdentity()->getId());
 
-        
+
         $actionUrls = [
             'details' => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DETAILS)),
             'create'  => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_CREATE)),
             'edit'    => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_EDIT)),
             'delete'  => $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DELETE)),
         ];
-        
+
         $viewModel = new ViewModel(
                 array(
                     'actionUrls' => $actionUrls,
-                    
-                    'msgSuccess' => $this->flashMessenger()->getCurrentSuccessMessages(),
-                    'msgInfo'    => $this->flashMessenger()->getCurrentInfoMessages(),
-                    'msgError'   => $this->flashMessenger()->getCurrentErrorMessages(),
+
+                    'messages'   => $this->flashMessenger(),
 
                     'current'    => new Filter\Current($infoscript),
                     'outdated'   => new Filter\Outdated($infoscript),
@@ -72,7 +70,7 @@ class InfoscriptController extends AbstractController {
                     'inactive'   => new Filter\Inactive($infoscript),
                 )
         );
-        
+
         return $viewModel->setTemplate('/base/infoscript/show.phtml');
     }
 
@@ -83,13 +81,13 @@ class InfoscriptController extends AbstractController {
 
         $userIdElement = $form->getUserId();
         $userIdElement->setValue($this->zfcUserAuthentication()->getIdentity()->getId());
-        
-        
+
+
         $infoscript = $service->createInfoscriptFromForm($form, $this->getRequest());
 
         if (!$infoscript) {
             $viewModel = new ViewModel(['form' => $form]);
-            
+
             return $viewModel->setTemplate('/base/infoscript/create');
         }
 
@@ -117,7 +115,7 @@ class InfoscriptController extends AbstractController {
 
         if (!$changed) {
             $viewModel = new ViewModel(array('form' => $form));
-            
+
             return $viewModel->setTemplate('/base/infoscript/edit');
         }
 
@@ -146,37 +144,36 @@ class InfoscriptController extends AbstractController {
                         'infoscript' => $infoscript,
                     ]
                 );
-            
+
                 return $viewModel->setTemplate('/base/infoscript/delete.phtml');
         }
 
-        //TODO prüfen warum, er trotz drücken auf "Nein" das Infoscript löscht
         $this->getService(C::SERVICE_MAPPER_INFOSCRIPT)->delete($infoscript, $this->getRequest(), $this->flashMessenger());
 
         return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
-        
+
     }
 
     public function detailsAction() {
 
         $id = (int) $this->params('id', NULL);
-        
+
         if(!$id){
             return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
         }
-        
+
         $infoscript  = $this->getService(C::SERVICE_INFOSCRIPT)->getById($id);
-        
+
         $deleteUrl   = $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DELETE_DISPLAY));
         $addUrl      = $this->url()->fromRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_ADD_DISPLAY));
-        
+
         $bildschirmResultSet = $this->getServiceLocator()->get(C::SERVICE_TABLE_BILDSCHIRM)->fetchAll();
-        
+
         $bildschirme = [];
         foreach ($bildschirmResultSet as $bildschirm) {
             array_push($bildschirme, $bildschirm);
         }
-        
+
         $addBildschirme = array_diff($bildschirme, $infoscript->getBildschirme());
 
 
@@ -186,48 +183,46 @@ class InfoscriptController extends AbstractController {
                 'deleteUrl'   => $deleteUrl,
                 'bildschirme' => $addBildschirme,
                 'addUrl'      => $addUrl,
-                                
-                'msgSuccess' => $this->flashMessenger()->getCurrentSuccessMessages(),
-                'msgInfo'    => $this->flashMessenger()->getCurrentInfoMessages(),
-                'msgError'   => $this->flashMessenger()->getCurrentErrorMessages(),
+
+                'messages'   => $this->flashMessenger(),
             )
         );
-        
+
         return $viewModel->setTemplate('/base/infoscript/details.phtml');
     }
 
-    
-    //TODO Auslagern in eigenen Display- Controller
+
+    //:TODO Auslagern in eigenen Display- Controller
     public function deleteFromDisplayAction(){
-        
+
         $inseratId    = (int) $this->params('id', null);
         $bildschirmId = (int) $this->params('display', null);
-        
+
         if (!($inseratId && $bildschirmId)) {
             return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
         }
-        
-        
+
+
         $this->getServiceLocator()->get(C::SERVICE_DISPLAYLINK)->delete($inseratId, $bildschirmId);
-        
+
         $this->flashMessenger()->addSuccessMessage('Bildschirm erfolgreich entfernt!');
 
         return $this->redirect()->toRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DETAILS, 'id' => $inseratId));
     }
-    
+
     public function addToDisplayAction(){
-        
+
         $inseratId    = (int) $this->params('id', null);
         $bildschirmId = (int) $this->params('display', null);
-        
+
         if (!($inseratId && $bildschirmId)) {
             return $this->simpleRedirectRoute(self::ROUTE, self::CONTROLLER, self::ACTION_INDEX);
         }
-        
+
         $this->getService(C::SERVICE_DISPLAYLINK)->add($inseratId, $bildschirmId);
-        
+
         $this->flashMessenger()->addSuccessMessage('Bildschirm erfolgreich hinzugefügt');
-        
+
         return $this->redirect()->toRoute(self::ROUTE, array('controller' => self::CONTROLLER, 'action' => self::ACTION_DETAILS, 'id' => $inseratId));
     }
     //ENDTODO

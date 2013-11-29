@@ -53,9 +53,7 @@ class IndexController extends AbstractController
             
             'actionUrls' => $actionUrls,
 
-            'msgSuccess' => $this->flashMessenger()->getCurrentSuccessMessages(),
-            'msgInfo'    => $this->flashMessenger()->getCurrentInfoMessages(),
-            'msgError'   => $this->flashMessenger()->getCurrentErrorMessages(),
+            'messages'   => $this->flashMessenger(),
             
             'current'  => new Filter\Current($info),
             'future'   => new Filter\Future($info),
