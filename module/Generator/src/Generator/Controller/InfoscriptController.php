@@ -54,19 +54,23 @@ class InfoscriptController extends AbstractController
     public function infoAction() {
 
         $infoscript = new \Base\Model\Entity\Infoscript();
-        
+
         $infoscript
             ->setHeadLine("Info Headline")
             ->setTitle("Info Title")
             ->setText(
                     "Info Text 1\n"
                     . "Info Text 2\n"
-                    . "* Text *3");
+                    . "* Text *3\n"
+                    . "* huhasdasdasjdlharharhadslkasdjfdsnfsd\n"
+                    . "* 5sdfkjhlhsfkdfasdmfnasdjfkhlasdfafdsfkjlasfdhklj\n"
+                    . "* dfsahflkkasfjhsabdk"
+                    );
 
         return $this->disableLayout(new ViewModel(
                 [
                     'infoscript' => $infoscript,
-                ]         
+                ]
             )
         );
     }
