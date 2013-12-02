@@ -144,8 +144,9 @@ body
 	width				: 100%;
     margin-top: 20px;
 	margin-left			: 0px;
-    
-    line-height        : 12px;
+    font-size: 36px;
+    font-weight: bold;
+    line-height        : 36px;
 	padding				: 0px 0 5px 0px;
 }
 

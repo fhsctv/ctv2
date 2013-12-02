@@ -47,8 +47,31 @@ class CreateController extends AbstractController {
                   'form' => $form,
               ]
       );
-      
-      
+    }
+    
+    public function createListeAction() {
+      $form = new \Fachhochschule\Form\Liste();
+      return new ViewModel(
+              [
+                  'form' => $form,
+              ]
+      );
     }
 
+    public function createTabelleAction() {
+      $form = new \Fachhochschule\Form\Tabelle();
+      return new ViewModel(
+              [
+                  'form' => $form,
+              ]
+      );
+    }
+    
+    public function createBildAction() {
+      $form = new \Fachhochschule\Form\Bild();
+      return new ViewModel(
+              [
+                  'form' => $form,
+              ]);
+    }
 }
