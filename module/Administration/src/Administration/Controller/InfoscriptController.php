@@ -117,6 +117,7 @@ class InfoscriptController extends AbstractController {
                 'start'    => '2012-06-18',
                 'ende'     => '2099-12-31',
                 'aktiv'    => '1',
+                'headline' => 'Google News',
             ),
             array(
                 'inserat_id'      => '',
@@ -125,6 +126,7 @@ class InfoscriptController extends AbstractController {
                 'start'    => '2013-10-12',
                 'ende'     => '2013-10-16',
                 'aktiv'    => '1',
+                'headline' => 'SAP',
             ),
             array(
                 'inserat_id'      => '',
@@ -133,6 +135,7 @@ class InfoscriptController extends AbstractController {
                 'start'    => '2012-06-10',
                 'ende'     => '2099-12-31',
                 'aktiv'    => '1',
+                'headline' => 'Mensa Heute',
             ),
             array(
                 'inserat_id'      => '',
@@ -141,6 +144,7 @@ class InfoscriptController extends AbstractController {
                 'start'    => '2012-06-18',
                 'ende'     => '2099-12-31',
                 'aktiv'    => '1',
+                'headline' => 'Niederschlagsradar',
             ),
             array(
                 'inserat_id'      => '',
@@ -149,6 +153,7 @@ class InfoscriptController extends AbstractController {
                 'start'    => '2013-10-07',
                 'ende'     => '2013-10-16',
                 'aktiv'    => '1',
+                'headline' => 'Willkommen',
             ),
             array(
                 'inserat_id'      => '',
@@ -157,6 +162,7 @@ class InfoscriptController extends AbstractController {
                 'start'    => '2013-06-15',
                 'ende'     => '2013-06-15',
                 'aktiv'    => '1',
+                'headline' => 'Hochschul- Informationstag',
             ),
             array(
                 'inserat_id'      => '',
@@ -165,6 +171,7 @@ class InfoscriptController extends AbstractController {
                 'start'    => '2013-06-15',
                 'ende'     => '2013-06-15',
                 'aktiv'    => '1',
+                'headline' => 'Hochschul- Informationstag',
             ),
             array(
                 'inserat_id'      => '',
@@ -173,6 +180,7 @@ class InfoscriptController extends AbstractController {
                 'start'    => '2013-06-15',
                 'ende'     => '2013-06-15',
                 'aktiv'    => '1',
+                'headline' => 'Hochschul- Informationstag',
             ),
             array(
                 'inserat_id'      => '',
@@ -181,6 +189,7 @@ class InfoscriptController extends AbstractController {
                 'start'    => '2013-06-15',
                 'ende'     => '2013-06-15',
                 'aktiv'    => '1',
+                'headline' => 'Hochschul- Informationstag',
             ),
             array(
                 'inserat_id'      => '',
@@ -189,6 +198,7 @@ class InfoscriptController extends AbstractController {
                 'start'    => '2013-06-15',
                 'ende'     => '2013-06-15',
                 'aktiv'    => '1',
+                'headline' => 'Hochschul- Informationstag',
             ),
             array(
                 'inserat_id'      => '',
@@ -197,6 +207,7 @@ class InfoscriptController extends AbstractController {
                 'start'    => '2013-06-15',
                 'ende'     => '2013-06-15',
                 'aktiv'    => '1',
+                'headline' => 'Hochschul- Informationstag',
             ),
             array(
                 'inserat_id'      => '',
@@ -206,6 +217,7 @@ class InfoscriptController extends AbstractController {
                 'start'    => '2013-06-15',
                 'ende'     => '2013-06-15',
                 'aktiv'    => '1',
+                'headline' => 'Hochschul- Informationstag',
             ),
             array(
                 'inserat_id'      => '',
@@ -214,6 +226,7 @@ class InfoscriptController extends AbstractController {
                 'start'    => '2000-01-01',
                 'ende'     => '2099-12-31',
                 'aktiv'    => '1',
+                'headline' => 'FHS News',
             ),
             array(
                 'inserat_id'      => '',
@@ -222,6 +235,7 @@ class InfoscriptController extends AbstractController {
                 'start'    => '2013-10-14',
                 'ende'     => '2099-10-14',
                 'aktiv'    => '1',
+                'headline' => 'Wetter',
             ),
             // </editor-fold>
         );
@@ -229,16 +243,25 @@ class InfoscriptController extends AbstractController {
         $iHyd = $this->getService(C::SERVICE_HYDRATOR_MODEL_INFOSCRIPT);
         $iMapper = $this->getService(C::SERVICE_MAPPER_INFOSCRIPT);
 
-        foreach ($set as $infArr) {
+        $displayTable     = $this->getServiceLocator()->get(C::SERVICE_TABLE_BILDSCHIRM);
+        $displayResultSet = $displayTable->fetchAll()->buffer();
 
-            $ifScr = $iHyd->hydrate($infArr, $this->getService(C::SERVICE_ENTITY_INFOSCRIPT));
+        foreach ($set as $infDataArr) {
 
-            //:FIXME Mapper anpassen, und mit Bilschirmobjekten arbeiten
-            $ifScr->addBildschirm(1)->addBildschirm(2)->addBildschirm(3)->addBildschirm(4);
+            $infoscript = $iHyd->hydrate($infDataArr, $this->getService(C::SERVICE_ENTITY_INFOSCRIPT));
+
+            //jedes infoscript bekommt alle bildschirme zugewiesen
+            foreach ($displayResultSet as $display) {
+                $infoscript->addBildschirm($display);
+            }
+
+            $infoscript->addColumn(new \Base\Model\Entity\Infoscript\Column($infoscript->getHeadLine() . ' Titel Col 1', $infoscript->getHeadLine() . ' Text Col 1'));
+            $infoscript->addColumn(new \Base\Model\Entity\Infoscript\Column($infoscript->getHeadLine() . ' Titel Col 2', $infoscript->getHeadLine() . ' Text Col 2'));
+
 
             try {
-                $id = $iMapper->save($ifScr);
-                $id = $id->getInseratId();
+                $info = $iMapper->save($infoscript);
+                $id = $info->getInseratId();
 
                 $this->flashMessenger()->addSuccessMessage("Infoscript mit der Id $id erfolgreich importiert");
             }

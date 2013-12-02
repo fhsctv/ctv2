@@ -30,8 +30,49 @@ class CreateController extends AbstractController {
     }
 
     public function selectTemplateAction() {
-        
-        return [];      
+
+        $actionUrls = new \ArrayObject(
+        [
+            'create' => new \ArrayObject(
+            [
+              'info'   => $this->url()->fromRoute('fachhochschule/default', ['controller' => 'create', 'action' => 'create-info']),
+              'table'  => $this->url()->fromRoute('fachhochschule/default', ['controller' => 'create', 'action' => 'create-table']),
+              'list'   => $this->url()->fromRoute('fachhochschule/default', ['controller' => 'create', 'action' => 'create-list']),
+              'bild'   => $this->url()->fromRoute('fachhochschule/default', ['controller' => 'create', 'action' => 'create-bild']),
+            ], \ArrayObject::ARRAY_AS_PROPS),
+        ], \ArrayObject::ARRAY_AS_PROPS);
+
+        return [
+
+            'actionUrls' => $actionUrls,
+
+        ];
+    }
+
+    public function createInfoAction() {
+
+
+        $previewWidget = $this->forward()->dispatch('Generator\Controller\Infoscript', ['action' => 'info']);
+
+        $viewModel = new ViewModel();
+        $viewModel->addChild($previewWidget, 'previewWidget');
+
+        return $viewModel;
+    }
+
+    public function createListAction() {
+
+        var_dump('createList');
+    }
+
+    public function createImageAction() {
+
+        var_dump('createImage');
+    }
+
+    public function createTableAction() {
+
+        var_dump('createTable');
     }
 
 }

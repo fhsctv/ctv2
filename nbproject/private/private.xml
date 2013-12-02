@@ -9,6 +9,11 @@
             <file>file:/var/www/html/ctv2/module/Application/view/application/index/index.phtml</file>
             <file>file:/var/www/html/ctv2/module/Administration/src/Administration/Controller/IndexController.php</file>
         </group>
-        <group name="CTV"/>
+        <group name="CTV">
+            <file>file:/var/www/html/ctv2/module/Generator/src/Generator/Controller/InfoscriptController.php</file>
+            <file>file:/var/www/html/ctv2/module/Fachhochschule/view/fachhochschule/create/select-template.phtml</file>
+            <file>file:/var/www/html/ctv2/module/Fachhochschule/src/Fachhochschule/Controller/CreateController.php</file>
+            <file>file:/var/www/html/ctv2/module/Fachhochschule/view/fachhochschule/create/create-info.phtml</file>
+        </group>
     </open-files>
 </project-private>

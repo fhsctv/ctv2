@@ -67,12 +67,11 @@ class InfoscriptController extends AbstractController
                     . "* dfsahflkkasfjhsabdk"
                     );
 
-        return $this->disableLayout(new ViewModel(
+        return new ViewModel(
                 [
                     'infoscript' => $infoscript,
                 ]
-            )
-        );
+            );
     }
 
     public function tabelleAction()
@@ -91,7 +90,7 @@ class InfoscriptController extends AbstractController
 
       $discription = "Hier steht die Beschreibung etz.";
 
-      return new ViewModel(
+      return (new ViewModel(
               array(
                   'content' => $content,
                   'headline' => $headline,
@@ -100,7 +99,7 @@ class InfoscriptController extends AbstractController
                   'titel_right' => $titel_right,
                   'text_right'  => $text_right,
                   'discription' => $discription,
-              ));
+              )))->setTerminal(true);
     }
     public function bildAction()
     {
