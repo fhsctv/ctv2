@@ -91,7 +91,7 @@ class RegisterController extends  \ZfcUser\Controller\UserController {
         
         
         
-        $mapper = $this->getServiceLocator()->get(C::SM_MAPPER_FACHHOCHSCHULE);
+        $mapper = $this->getServiceLocator()->get(C::SM_MAP_FACHHOCHSCHULE);
         $mapper->save($fachhochschule);
         
         

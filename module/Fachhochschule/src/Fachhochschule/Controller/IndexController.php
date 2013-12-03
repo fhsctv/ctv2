@@ -36,7 +36,7 @@ class IndexController extends AbstractController {
 
         $userId = $this->zfcUserAuthentication()->getIdentity()->getId();
 
-        $userMapper  = $this->getServiceLocator()->get(C::SM_MAPPER_FACHHOCHSCHULE);
+        $userMapper  = $this->getServiceLocator()->get(C::SM_MAP_FACHHOCHSCHULE);
 
         $user = $userMapper->getById($userId);
 

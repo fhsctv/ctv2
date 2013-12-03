@@ -10,7 +10,7 @@ class UserController extends AbstractController {
 
     public function indexAction() {
 
-        $userMapper  = $this->getServiceLocator()->get(C::SM_MAPPER_FACHHOCHSCHULE);
+        $userMapper  = $this->getServiceLocator()->get(C::SM_MAP_FACHHOCHSCHULE);
 
         $actionUrls = [
 
@@ -37,7 +37,7 @@ class UserController extends AbstractController {
             return $this->redirect()->toRoute('administration/default', ['controller' => 'user', 'action' => 'index']);
         }
 
-        $user = $this->getServiceLocator()->get(C::SM_TABLE_USER)->getById($id);
+        $user = $this->getServiceLocator()->get(C::SM_TBL_USER)->getById($id);
         $info = $this->getServiceLocator()->get(C::SERVICE_INFOSCRIPT)->getByUserId($id);
 
         $actionUrls =
@@ -78,10 +78,10 @@ class UserController extends AbstractController {
             return $this->redirect()->toRoute('administration/default', ['controller' => 'user', 'action' => 'index']);
         }
 
-        $mapper = $this->getServiceLocator()->get(C::SM_MAPPER_FACHHOCHSCHULE);
+        $mapper = $this->getServiceLocator()->get(C::SM_MAP_FACHHOCHSCHULE);
         $fhUser = $mapper->getById($id);
 
-        $form = $this->getServiceLocator()->get(C::SERVICE_FORM_DELETE);
+        $form = $this->getServiceLocator()->get(C::SM_FORM_DELETE);
         $form->setAttribute('action', $this->url()->fromRoute('administration/default', ['controller' => 'user', 'action' => 'delete', 'id' => $id]));
 
         if(!$this->getRequest()->isPost()) {

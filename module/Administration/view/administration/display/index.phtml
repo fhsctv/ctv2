@@ -24,10 +24,10 @@
                         <?php foreach ($this->displays as $display) : ?>
 
                         <tr>
-                            <td><a class="btn btn-default btn-xs" href="#">Details</a></td>
+                            <td><a class="btn btn-default btn-xs" href="<?php echo $this->actionUrls['details'] . "/id=" . $display->getId(); ?> ">Details</a></td>
                             <td><?= $display->getId(); ?></td>
                             <td><?= $display->getBeschreibung(); ?></td>
-                            <td><a class="btn btn-danger btn-xs" href="#">löschen</a></td>
+                            <td><a class="btn btn-danger btn-xs" href="<?php echo $this->actionUrls['delete'] . "/id=" . $display->getId(); ?> ">löschen</a></td>
                         </tr>
 
                         <?php endforeach; ?>
@@ -36,7 +36,7 @@
 
                 </table>
 
-                <a class="btn btn-success" href="#"><img class="icon icon-next" src="/img/administration/icons/new-16.png" /> Neuen Bildschirm hinzufügen</a>
+                <a class="btn btn-success" href="<?php echo $this->actionUrls['delete']; ?>"><img class="icon icon-next" src="/img/administration/icons/new-16.png" /> Neuen Bildschirm hinzufügen</a>
 
             </div>
         </div>

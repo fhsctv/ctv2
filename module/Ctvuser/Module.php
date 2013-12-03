@@ -41,7 +41,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Se
         return array(
             'factories' => array(
 //                'zfcuser_user_mapper' => function ($sm) {
-//                    return $sm->get(C::SM_MAPPER_FACHHOCHSCHULE);
+//                    return $sm->get(C::SM_MAP_FACHHOCHSCHULE);
 //                }
  
             ),

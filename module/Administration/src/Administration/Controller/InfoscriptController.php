@@ -240,15 +240,15 @@ class InfoscriptController extends AbstractController {
             // </editor-fold>
         );
 
-        $iHyd = $this->getService(C::SERVICE_HYDRATOR_MODEL_INFOSCRIPT);
-        $iMapper = $this->getService(C::SERVICE_MAPPER_INFOSCRIPT);
+        $iHyd = $this->getService(C::SM_HYD_MODEL_INFOSCRIPT);
+        $iMapper = $this->getService(C::SM_MAP_INFOSCRIPT);
 
-        $displayTable     = $this->getServiceLocator()->get(C::SERVICE_TABLE_BILDSCHIRM);
+        $displayTable     = $this->getServiceLocator()->get(C::SM_TBL_BILDSCHIRM);
         $displayResultSet = $displayTable->fetchAll()->buffer();
 
         foreach ($set as $infDataArr) {
 
-            $infoscript = $iHyd->hydrate($infDataArr, $this->getService(C::SERVICE_ENTITY_INFOSCRIPT));
+            $infoscript = $iHyd->hydrate($infDataArr, $this->getService(C::SM_ENTITY_INFOSCRIPT));
 
             //jedes infoscript bekommt alle bildschirme zugewiesen
             foreach ($displayResultSet as $display) {

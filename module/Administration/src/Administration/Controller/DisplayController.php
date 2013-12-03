@@ -10,12 +10,13 @@ class DisplayController extends AbstractController {
 
     public function indexAction() {
 
-        $displayTable  = $this->getServiceLocator()->get(C::SERVICE_TABLE_BILDSCHIRM);
+        $displayTable  = $this->getServiceLocator()->get(C::SM_TBL_BILDSCHIRM);
 
         $actionUrls = [
 
             'details'  => $this->url()->fromRoute('administration/default', [ 'controller' => 'display', 'action' => 'details', ]),
             'delete'   => $this->url()->fromRoute('administration/default', [ 'controller' => 'display', 'action' => 'delete', ]),
+            'create'   => $this->url()->fromRoute('administration/default', [ 'controller' => 'display', 'action' => 'create', ]),
         ];
 
         return
@@ -29,6 +30,9 @@ class DisplayController extends AbstractController {
 
     public function detailsAction() {
 
+        throw new \Exception('NOT IMPLEMENTED YET!');
+
+
         $id = $this->params()->fromRoute('id', null);
 
         if(!$id){
@@ -37,8 +41,8 @@ class DisplayController extends AbstractController {
             return $this->redirect()->toRoute('administration/default', ['controller' => 'User', 'action' => 'index']);
         }
 
-        $user = $this->getServiceLocator()->get(C::SM_TABLE_USER)->getById($id);
-        $info = $this->getServiceLocator()->get(C::SERVICE_INFOSCRIPT)->getByUserId($id);
+        $user = $this->getServiceLocator()->get(C::SM_TBL_USER)->getById($id);
+        $info = $this->getServiceLocator()->get(C::SERVICE_INFOSCRIPT)->findByUserId($id);
 
         $actionUrls =
         [
@@ -71,6 +75,8 @@ class DisplayController extends AbstractController {
 
     public function deleteAction() {
 
+        throw new \Exception('NOT IMPLEMENTED YET!');
+
         $id = $this->params()->fromRoute('id', null);
 
         if(!$id) {
@@ -78,10 +84,10 @@ class DisplayController extends AbstractController {
             return $this->redirect()->toRoute('administration/default', ['controller' => 'user', 'action' => 'index']);
         }
 
-        $mapper = $this->getServiceLocator()->get(C::SM_MAPPER_FACHHOCHSCHULE);
-        $fhUser = $mapper->getById($id);
+        $mapper = $this->getServiceLocator()->get(C::SM_MAP_FACHHOCHSCHULE);
+        $fhUser = $mapper->findById($id);
 
-        $form = $this->getServiceLocator()->get(C::SERVICE_FORM_DELETE);
+        $form = $this->getServiceLocator()->get(C::SM_FORM_DELETE);
         $form->setAttribute('action', $this->url()->fromRoute('administration/default', ['controller' => 'user', 'action' => 'delete', 'id' => $id]));
 
         if(!$this->getRequest()->isPost()) {
@@ -100,5 +106,11 @@ class DisplayController extends AbstractController {
         $mapper->delete($fhUser);
         $this->flashMessenger()->addSuccessMessage('Benutzer wurde erfolgreich gelöscht!');
         return $this->redirect()->toRoute('administration/default', ['controller' => 'user', 'action' => 'index']);
+    }
+
+    public function createAction() {
+
+        throw new \Exception('NOT IMPLEMENTED YET!');
+
     }
 }
