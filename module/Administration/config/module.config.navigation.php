@@ -13,6 +13,12 @@ return array(
                         'controller' => 'user',
                         'action' => 'index',
                     ),
+                    'display' => array(
+                        'label' => 'Bildschirme',
+                        'route' => 'administration/default',
+                        'controller' => 'display',
+                        'action' => 'index',
+                    ),
                     'infoscript' => array(
                         'label' => 'Infoscripte',
                         'route' => 'administration/default',

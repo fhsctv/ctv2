@@ -257,7 +257,7 @@ class InfoscriptController extends AbstractController {
 
             $infoscript->addColumn(new \Base\Model\Entity\Infoscript\Column($infoscript->getHeadLine() . ' Titel Col 1', $infoscript->getHeadLine() . ' Text Col 1'));
             $infoscript->addColumn(new \Base\Model\Entity\Infoscript\Column($infoscript->getHeadLine() . ' Titel Col 2', $infoscript->getHeadLine() . ' Text Col 2'));
-
+            $infoscript->setDescription('Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung');
 
             try {
                 $info = $iMapper->save($infoscript);

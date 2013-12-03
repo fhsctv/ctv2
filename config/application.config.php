@@ -5,8 +5,8 @@ return array(
         'ZfcTwitterBootstrap',
         'ZfcBase',
         'ZfcUser',
-        'WebsafeZfModZfcUserI18nDeDe', //Übersetzung auf Deutsch
         #'BjyAuthorize',
+        'WebsafeZfModZfcUserI18nDeDe', //Übersetzung auf Deutsch
         'BjyProfiler',
         'ZendDeveloperTools',
 //        'CdliTwoStageSignup',

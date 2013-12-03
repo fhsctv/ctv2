@@ -28,21 +28,11 @@
                 <div class="col-md-12">
                     <div class="liste">
                         <div class="info">
-                            <?php echo $this->infoscript->getTitle(); ?>
+                            <?php echo $this->infoscript->getFirstColumn()->getTitle(); ?>
                             <br>
                             <br>
-                                <?php foreach ($this->infoscript->getText() as $textLine) : ?>
+                                <?php echo $this->infoscript->getFirstColumn()->getText(); ?>
 
-                                    <?php
-                                    if ($textLine->isBulletItem()) {
-                                        echo '<li>' . $textLine->getText() . '</li>';
-                                    } else {
-                                        echo ($textLine->getText());
-                                    }
-
-                                    echo '<br/>'
-                                    ?>
-                                <?php endforeach; ?>
                             </div>
                         </div>
                     </div>

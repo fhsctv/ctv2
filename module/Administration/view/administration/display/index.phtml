@@ -1,0 +1,44 @@
+<h1 class="h1">Bildschirm Administration</h1>
+
+
+<?= $this->partial('base/flash.phtml'); ?>
+
+<div class="row row-fluid">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Bildschirme
+            </div>
+
+            <div class="panel-body">
+
+                <table class="table table-responsive table-condensed table-hover">
+
+                    <thead>
+                        <tr>
+                            <th>Details</th> <th>Id</th> <th>Beschreibung</th> <th>löschen</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php foreach ($this->displays as $display) : ?>
+
+                        <tr>
+                            <td><a class="btn btn-default btn-xs" href="#">Details</a></td>
+                            <td><?= $display->getId(); ?></td>
+                            <td><?= $display->getBeschreibung(); ?></td>
+                            <td><a class="btn btn-danger btn-xs" href="#">löschen</a></td>
+                        </tr>
+
+                        <?php endforeach; ?>
+
+                    </tbody>
+
+                </table>
+
+                <a class="btn btn-success" href="#"><img class="icon icon-next" src="/img/administration/icons/new-16.png" /> Neuen Bildschirm hinzufügen</a>
+
+            </div>
+        </div>
+    </div>
+</div>

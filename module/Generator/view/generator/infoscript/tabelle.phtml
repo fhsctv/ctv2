@@ -5,7 +5,7 @@
         <?php echo date("d.m.Y") ?>
       </div>
       <div class="titel">
-        <?php echo $this->headline."<br>"; ?>
+        <?php echo $this->infoscript->getHeadline()."<br>"; ?>
       </div>
       <div class="uhr">
 
@@ -18,28 +18,28 @@
         <div class="panel panel-ctv">
           <div class="panel-body">
             <div class="text">
-              <?php echo $this->discription; ?>
+              <?php echo $this->infoscript->getDescription(); ?>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+
   <div class="row-fluid">
     <div class="col-md-6">
       <div class="liste">
         <div class="panel panel-ctv">
           <div class="panel-heading">
-            <h3 class="panel-title"><?php echo $this->titel_left; ?></h3>
+            <h3 class="panel-title"><?php echo $this->infoscript->getFirstColumn()->getTitle(); ?></h3>
           </div>
           <div class="panel-body" font-size="5px">
             <div class="text">
-              <?php echo $this->text_left; ?>
+              <?php echo $this->infoscript->getFirstColumn()->getText(); ?>
             </div>
             <div class="liste">
               <ul>
-              <?php echo $this->liste_left; ?>
+              <?php echo $this->infoscript->getFirstColumn()->getList(); ?>
               </ul>
             </div>
           </div>
@@ -50,15 +50,15 @@
       <div class="liste">
         <div class="panel panel-ctv">
           <div class="panel-heading">
-            <h3 class="panel-title"><?php echo $this->titel_right; ?></h3>
+            <h3 class="panel-title"><?php echo $this->infoscript->getSecondColumn()->getTitle(); ?></h3>
           </div>
           <div class="panel-body" font-size="5px">
             <div class="text">
-              <?php echo $this->text_right; ?>
+              <?php echo $this->infoscript->getSecondColumn()->getText(); ?>
             </div>
             <div class="liste">
               <ul>
-              <?php echo $this->liste_right; ?>
+              <?php echo $this->infoscript->getSecondColumn()->getList(); ?>
               </ul>
             </div>
           </div>
@@ -69,4 +69,4 @@
   <div class="bottom">powered by www.fh-schmalkalden.de</div>
 </div>
 
-    
+

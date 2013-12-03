@@ -57,15 +57,22 @@ class InfoscriptController extends AbstractController
 
         $infoscript
             ->setHeadLine("Info Headline")
-            ->setTitle("Info Title")
-            ->setText(
-                    "Info Text 1\n"
-                    . "Info Text 2\n"
-                    . "* Text *3\n"
-                    . "* huhasdasdasjdlharharhadslkasdjfdsnfsd\n"
-                    . "* 5sdfkjhlhsfkdfasdmfnasdjfkhlasdfafdsfkjlasfdhklj\n"
-                    . "* dfsahflkkasfjhsabdk"
-                    );
+            ->addColumn(new \Base\Model\Entity\Infoscript\Column("Info Title",
+                      "<li>Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile </li>\n"
+                    . "<li>Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2 Zeile </li>\n"
+                    . "<li>Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3 Zeile </li>\n"
+                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
+                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
+                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
+                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
+                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
+                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
+                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
+                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
+                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
+
+            )
+        );
 
         return new ViewModel(
                 [
@@ -76,30 +83,57 @@ class InfoscriptController extends AbstractController
 
     public function tabelleAction()
     {
-      $content = __METHOD__;
 
-      $headline = "Tabelle Template";
+//        $infoscript = new \Base\Model\Entity\Infoscript();
+//
+//        $infoscript
+//            ->setHeadLine("Info Headline")
+//            ->setDescription("Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung "
+//                    . "Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung "
+//                    . "Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung "
+//                    . "Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung "
+//                    . "Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung "
+//                    . "Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung "
+//                    . "Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung "
+//                    . "Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung")
+//            ->createColumn(
+//                    "Info Title FIRST",
+//
+//                      "<li>Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile </li>\n"
+//                    . "<li>Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2 Zeile </li>\n"
+//                    . "<li>Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3 Zeile </li>\n"
+//                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
+//                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n",
+//
+//                  "Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1"
+//                . " Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1"
+//
+//
+//            )
+//            ->createColumn(
+//                    "Info Title SECOND",
+//
+//                      "<li>Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile </li>\n"
+//                    . "<li>Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2 Zeile </li>\n"
+//                    . "<li>Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3 Zeile </li>\n"
+//                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
+//                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n",
+//
+//                      "Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1"
+//                    . " Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1"
+//
+//            );
 
-      $titel_left = "Hier kommt der Titel";
+        $infoscript = $this->getServiceLocator()->get(C::SERVICE_INFOSCRIPT)->getById(2);
 
-      $text_left = "Hier kommt der Text <br> bla bla <br> text";
 
-      $titel_right = "Hier kommt der Titel";
+        return new ViewModel(
+        [
+            'infoscript' => $infoscript,
+        ]);
 
-      $text_right = "Hier kommt der Text <br> bla bla <br> text";
 
-      $discription = "Hier steht die Beschreibung etz.";
 
-      return (new ViewModel(
-              array(
-                  'content' => $content,
-                  'headline' => $headline,
-                  'titel_left' => $titel_left,
-                  'text_left'  => $text_left,
-                  'titel_right' => $titel_right,
-                  'text_right'  => $text_right,
-                  'discription' => $discription,
-              )))->setTerminal(true);
     }
     public function bildAction()
     {

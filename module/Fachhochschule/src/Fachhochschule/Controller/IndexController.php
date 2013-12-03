@@ -30,6 +30,10 @@ class IndexController extends AbstractController {
 
     public function indexAction() {
 
+        if(!$this->zfcUserAuthentication()->hasIdentity()) {
+            return $this->redirect()->toRoute('zfcuser/login');
+        }
+
         $userId = $this->zfcUserAuthentication()->getIdentity()->getId();
 
         $userMapper  = $this->getServiceLocator()->get(C::SM_MAPPER_FACHHOCHSCHULE);

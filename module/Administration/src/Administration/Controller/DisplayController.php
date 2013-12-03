@@ -6,23 +6,23 @@ use Zend\View\Model\ViewModel;
 
 use Base\Constants as C;
 
-class UserController extends AbstractController {
+class DisplayController extends AbstractController {
 
     public function indexAction() {
 
-        $userMapper  = $this->getServiceLocator()->get(C::SM_MAPPER_FACHHOCHSCHULE);
+        $displayTable  = $this->getServiceLocator()->get(C::SERVICE_TABLE_BILDSCHIRM);
 
         $actionUrls = [
 
-            'details'  => $this->url()->fromRoute('administration/default', [ 'controller' => 'user', 'action' => 'details', ]),
-            'delete'   => $this->url()->fromRoute('administration/default', [ 'controller' => 'user', 'action' => 'delete', ]),
+            'details'  => $this->url()->fromRoute('administration/default', [ 'controller' => 'display', 'action' => 'details', ]),
+            'delete'   => $this->url()->fromRoute('administration/default', [ 'controller' => 'display', 'action' => 'delete', ]),
         ];
 
         return
         [
-            'users'      => $userMapper->fetchAll()->buffer(),
+            'displays'   => $displayTable->fetchAll()->buffer(),
             'actionUrls' => $actionUrls,
-            'messages' => $this->flashMessenger(),
+            'messages'   => $this->flashMessenger(),
         ];
 
     }
@@ -34,7 +34,7 @@ class UserController extends AbstractController {
         if(!$id){
 
             $this->flashMessenger()->addErrorMessage('Id fehlt! Bitte nutzen Sie die Schaltflächen in der Anwendung oder benachrichtigen den Administrator!');
-            return $this->redirect()->toRoute('administration/default', ['controller' => 'user', 'action' => 'index']);
+            return $this->redirect()->toRoute('administration/default', ['controller' => 'User', 'action' => 'index']);
         }
 
         $user = $this->getServiceLocator()->get(C::SM_TABLE_USER)->getById($id);

@@ -39,6 +39,10 @@ class InfoscriptController extends AbstractController {
 
     public function showAction() {
 
+        if(!$this->zfcUserAuthentication()->hasIdentity()) {
+            return $this->redirect()->toRoute('zfcuser/login');
+        }
+
         return $this->forward()->dispatch('Base\Controller\Infoscript',
             [
                 'controller' => 'infoscript',

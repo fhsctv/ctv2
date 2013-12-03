@@ -72,7 +72,12 @@ class CreateController extends AbstractController {
 
     public function createTableAction() {
 
-        var_dump('createTable');
+        $previewWidget = $this->forward()->dispatch('Generator\Controller\Infoscript', ['action' => 'tabelle']);
+
+        $viewModel = new ViewModel();
+        $viewModel->addChild($previewWidget, 'previewWidget');
+
+        return $viewModel;
     }
 
 }
