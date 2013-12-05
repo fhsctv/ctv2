@@ -21,8 +21,8 @@ return array(
                             ),
                             'create' => array(
                                 'label' => 'Erstellen',
-                                'route' => 'fachhochschule/default',
-                                'controller' => 'create',
+                                'route' => 'base/default',
+                                'controller' => 'infoscript',
                                 'action' => 'select-template',
                             ),
                         ),

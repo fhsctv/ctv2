@@ -17,138 +17,114 @@ class InfoscriptController extends AbstractController
 {
     public function indexAction()
     {
-        $content = __METHOD__;
+        $id = $this->params()->fromRoute('id', null);
+
+        if($id) {
+            $infoscript = $this->getServiceLocator()->get(C::SERVICE_INFOSCRIPT)->getById($id);
+        }
+        else {
+            $infoscript = $this->getServiceLocator()->get(C::SM_ENTITY_INFOSCRIPT);
+            $infoscript->setHeadline('Kopfzeile');
+
+            $text = 'Was bin ich eigentlich? Warum bin ich in der Index action? '
+                    . 'bitte gebt mir einen namen und eine persönlichkeit ore magna '
+                    . 'aliquyam erat, sed diam voluptua. At vero eos et accusam et '
+                    . 'justo duo dolores et ea rebum. Stet clita kasd gubergren, no '
+                    . 'sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem '
+                    . 'sanctus est Lorem ipsum dolor sit amet. a met? klingt iwie bayrisch.'
+                    . 'wurst leberkäs und aaa met';
+
+            $list = '<li> das ist ein langer zweizeiliger listenpunkt, der voll der platzhirsch ist. '
+                    . 'ganz schön lange stichpunkte müssen das sein.</li>'
+                  . '<li> listenpunkt 2 </li>';
+
+            $infoscript->createColumn('Komisch.. Der Text unter mir ist größer als '
+                    . 'ich! Ich bin doch hier der Supertitel!', $text, $list);
+        }
 
 
-
-        //beispiel infoscripte
-
-        $infoscriptService = $this->getService(C::SERVICE_INFOSCRIPT);
-
-        //hole nur 1 infoscript mit Id 1
-        $infoscript = $infoscriptService->getById(3);
-
-        $infoscript->setTitel('Mein toller InfoscriptTitel');
-
-        $headline = "Liste Template";
-
-        $titel = "Das ist der Titel";
-
-        $text = "Hier kommt der Text <br> Text <br> Text";
-
-        $liste = "<li>hier kommt eine liste von Daten</li>
-          <li>nummer 2</li>
-          <li>nummer 3</li>";
-
-        return new ViewModel(
-                array(
-                  'content' => $content,
-                  'infoscript' => $infoscript,
-                  'headline' => $headline,
-                  'titel' => $titel,
-                  'text' => $text,
-                  'liste' => $liste,
-                ));
+        return $this->disableLayout(new ViewModel(
+        [
+            'infoscript' => $infoscript,
+        ]));
     }
 
     public function infoAction() {
 
-        $infoscript = new \Base\Model\Entity\Infoscript();
+        $id = $this->params()->fromRoute('id', null);
 
-        $infoscript
-            ->setHeadLine("Info Headline")
-            ->addColumn(new \Base\Model\Entity\Infoscript\Column("Info Title",
-                      "<li>Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile </li>\n"
-                    . "<li>Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2 Zeile </li>\n"
-                    . "<li>Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3 Zeile </li>\n"
-                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
-                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
-                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
-                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
-                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
-                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
-                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
-                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
-                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
+        if($id) {
+            $infoscript = $this->getServiceLocator()->get(C::SERVICE_INFOSCRIPT)->getById($id);
+        }
+        else {
+            $infoscript = $this->getServiceLocator()->get(C::SM_ENTITY_INFOSCRIPT);
+            $infoscript->setHeadline('Kopfzeile');
 
-            )
-        );
+            $text = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed '
+                    . 'diam nonumy eirmod tempor invidunt ut labore et dolore magna '
+                    . 'aliquyam erat, sed diam voluptua. At vero eos et accusam et '
+                    . 'justo duo dolores et ea rebum. Stet clita kasd gubergren, no '
+                    . 'sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem '
+                    . 'ipsum dolor sit amet, consetetur sadipscing elitr, sed diam '
+                    . 'nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam '
+                    . 'erat, sed diam voluptua. At vero eos et accusam et justo duo '
+                    . 'dolores et ea rebum. Stet clita kasd gubergren, no sea takimata '
+                    . 'sanctus est Lorem ipsum dolor sit amet.';
+            $infoscript->createColumn('Titel des Infoscripts', $text);
+        }
 
-        return new ViewModel(
-                [
-                    'infoscript' => $infoscript,
-                ]
-            );
+
+        return $this->disableLayout(new ViewModel(
+        [
+            'infoscript' => $infoscript,
+        ]));
     }
 
     public function tabelleAction()
     {
 
-//        $infoscript = new \Base\Model\Entity\Infoscript();
-//
-//        $infoscript
-//            ->setHeadLine("Info Headline")
-//            ->setDescription("Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung "
-//                    . "Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung "
-//                    . "Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung "
-//                    . "Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung "
-//                    . "Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung "
-//                    . "Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung "
-//                    . "Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung "
-//                    . "Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung")
-//            ->createColumn(
-//                    "Info Title FIRST",
-//
-//                      "<li>Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile </li>\n"
-//                    . "<li>Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2 Zeile </li>\n"
-//                    . "<li>Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3 Zeile </li>\n"
-//                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
-//                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n",
-//
-//                  "Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1"
-//                . " Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1"
-//
-//
-//            )
-//            ->createColumn(
-//                    "Info Title SECOND",
-//
-//                      "<li>Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile 1 Zeile </li>\n"
-//                    . "<li>Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2  Zeile 2 Zeile </li>\n"
-//                    . "<li>Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3  Zeile 3 Zeile </li>\n"
-//                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n"
-//                    . "<li>Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4  Zeile 4 Zeile </li>\n",
-//
-//                      "Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1"
-//                    . " Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1 Liste 1"
-//
-//            );
+        $id = $this->params()->fromRoute('id', null);
 
-        $infoscript = $this->getServiceLocator()->get(C::SERVICE_INFOSCRIPT)->getById(2);
+        if($id) {
+            $infoscript = $this->getServiceLocator()->get(C::SERVICE_INFOSCRIPT)->getById($id);
+        }
+        else {
+            $infoscript = $this->getServiceLocator()->get(C::SM_ENTITY_INFOSCRIPT);
+            $infoscript->setHeadline('Kopfzeile');
+            $infoscript->setDescription('Beschreibung Beschreibung Beschreibung '
+                    . 'Beschreibung Beschreibung Beschreibung Beschreibung '
+                    . 'Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung');
+
+            $text = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed ' ;
+
+            $list = '<li>da passen nur 2 einzeiler</li>'
+                  . '<li>oder ein zweizeiler rein </li>'
+                  . '<li>Box- Ende weg! </li>';
+
+            $infoscript->createColumn('Titel Spalte 1', $text, $list);
+
+            $infoscript->createColumn('Titel Spalte 2', $text, $list);
+        }
 
 
-        return new ViewModel(
+        return $this->disableLayout(new ViewModel(
         [
             'infoscript' => $infoscript,
-        ]);
-
-
+        ]));
 
     }
+
     public function bildAction()
     {
-      $content = __METHOD__;
+        $infoscript = new \Base\Model\Entity\Infoscript();
+        $infoscript->setHeadLine('Bild Template');
+        $infoscript->addPicture('http://press.tape.tv/wp-content/uploads/2013/02/Download.png');
 
-      $headline = "Bild Template";
 
-      $bild = "http://press.tape.tv/wp-content/uploads/2013/02/Download.png";
-
-      return new ViewModel(
-              array(
-                  'content' => $content,
-                  'headline' => $headline,
-                  'bild' => $bild,
-              ));
+        return $this->disableLayout(new ViewModel(
+        [
+            'infoscript' => $infoscript,
+        ]));
     }
 
 }

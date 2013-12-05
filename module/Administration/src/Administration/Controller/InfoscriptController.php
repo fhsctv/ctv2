@@ -17,7 +17,7 @@ class InfoscriptController extends AbstractController {
 
 
         // <editor-fold defaultstate="collapsed" desc="Beispiel für Weiterleitung mit Parametern">
-        //        return $this->forward()->dispatch('Administration/Controller/Infoscript', array(
+        //        return $this->forward()->dispatch('Administration/Controller/Infoscript', [
         //                'action' => 'index',
         //                'grml' => $infoscript
         //            )
@@ -39,11 +39,10 @@ class InfoscriptController extends AbstractController {
     public function createAction() {
 
         return $this->forward()->dispatch('Base\Controller\Infoscript',
-            [
-                'controller' => 'infoscript',
-                'action'     => 'create',
-            ]
-        );
+        [
+            'controller' => 'infoscript',
+            'action'     => 'create',
+        ]);
     }
 
     public function editAction() {
@@ -108,9 +107,9 @@ class InfoscriptController extends AbstractController {
 
     public function importAction() {
 
-        $set = array(
+        $set = [
             // <editor-fold defaultstate="collapsed" desc="set">
-            array(
+            [
                 'inserat_id'      => '',
                 'fk_fh_id' => '1',
                 'url'  => 'http://futhuer.de/ctv/live/infoscripte/googlenews/news_check.php',
@@ -118,8 +117,9 @@ class InfoscriptController extends AbstractController {
                 'ende'     => '2099-12-31',
                 'aktiv'    => '1',
                 'headline' => 'Google News',
-            ),
-            array(
+                'description' => 'Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung',
+            ],
+            [
                 'inserat_id'      => '',
                 'fk_fh_id' => '1',
                 'url'  => 'http://futhuer.de/ctv/live/infoscripte/sap2013/sap2013.html',
@@ -127,8 +127,9 @@ class InfoscriptController extends AbstractController {
                 'ende'     => '2013-10-16',
                 'aktiv'    => '1',
                 'headline' => 'SAP',
-            ),
-            array(
+                'description' => 'Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung',
+            ],
+            [
                 'inserat_id'      => '',
                 'fk_fh_id' => '1',
                 'url'  => 'http://futhuer.de/ctv/live/infoscripte/mensa/mensa_neu.php',
@@ -136,8 +137,9 @@ class InfoscriptController extends AbstractController {
                 'ende'     => '2099-12-31',
                 'aktiv'    => '1',
                 'headline' => 'Mensa Heute',
-            ),
-            array(
+                'description' => 'Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung',
+            ],
+            [
                 'inserat_id'      => '',
                 'fk_fh_id' => '1',
                 'url'  => 'http://futhuer.de/ctv/live/infoscripte/niederschlagsradar/wetter.php',
@@ -145,8 +147,9 @@ class InfoscriptController extends AbstractController {
                 'ende'     => '2099-12-31',
                 'aktiv'    => '1',
                 'headline' => 'Niederschlagsradar',
-            ),
-            array(
+                'description' => 'Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung',
+            ],
+            [
                 'inserat_id'      => '',
                 'fk_fh_id' => '1',
                 'url'  => 'http://futhuer.de/ctv/live/anzeigen/Willkommen/Willkommen.html',
@@ -154,8 +157,9 @@ class InfoscriptController extends AbstractController {
                 'ende'     => '2013-10-16',
                 'aktiv'    => '1',
                 'headline' => 'Willkommen',
-            ),
-            array(
+                'description' => 'Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung',
+            ],
+            [
                 'inserat_id'      => '',
                 'fk_fh_id' => '1',
                 'url'  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/03.html',
@@ -163,8 +167,9 @@ class InfoscriptController extends AbstractController {
                 'ende'     => '2013-06-15',
                 'aktiv'    => '1',
                 'headline' => 'Hochschul- Informationstag',
-            ),
-            array(
+                'description' => 'Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung',
+            ],
+            [
                 'inserat_id'      => '',
                 'fk_fh_id' => '1',
                 'url'  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/01.html',
@@ -172,8 +177,9 @@ class InfoscriptController extends AbstractController {
                 'ende'     => '2013-06-15',
                 'aktiv'    => '1',
                 'headline' => 'Hochschul- Informationstag',
-            ),
-            array(
+                'description' => 'Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung',
+            ],
+            [
                 'inserat_id'      => '',
                 'fk_fh_id' => '1',
                 'url'  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/02.html',
@@ -181,8 +187,9 @@ class InfoscriptController extends AbstractController {
                 'ende'     => '2013-06-15',
                 'aktiv'    => '1',
                 'headline' => 'Hochschul- Informationstag',
-            ),
-            array(
+                'description' => 'Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung',
+            ],
+            [
                 'inserat_id'      => '',
                 'fk_fh_id' => '1',
                 'url'  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/04.html',
@@ -190,8 +197,9 @@ class InfoscriptController extends AbstractController {
                 'ende'     => '2013-06-15',
                 'aktiv'    => '1',
                 'headline' => 'Hochschul- Informationstag',
-            ),
-            array(
+                'description' => 'Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung',
+            ],
+            [
                 'inserat_id'      => '',
                 'fk_fh_id' => '1',
                 'url'  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/06.html',
@@ -199,8 +207,9 @@ class InfoscriptController extends AbstractController {
                 'ende'     => '2013-06-15',
                 'aktiv'    => '1',
                 'headline' => 'Hochschul- Informationstag',
-            ),
-            array(
+                'description' => 'Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung',
+            ],
+            [
                 'inserat_id'      => '',
                 'fk_fh_id' => '1',
                 'url'  => 'http://futhuer.de/ctv/live/infoscripte/HIT_2013/07.html',
@@ -208,8 +217,9 @@ class InfoscriptController extends AbstractController {
                 'ende'     => '2013-06-15',
                 'aktiv'    => '1',
                 'headline' => 'Hochschul- Informationstag',
-            ),
-            array(
+                'description' => 'Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung',
+            ],
+            [
                 'inserat_id'      => '',
                 'fk_fh_id' => '1',
 
@@ -218,8 +228,9 @@ class InfoscriptController extends AbstractController {
                 'ende'     => '2013-06-15',
                 'aktiv'    => '1',
                 'headline' => 'Hochschul- Informationstag',
-            ),
-            array(
+                'description' => 'Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung',
+            ],
+            [
                 'inserat_id'      => '',
                 'fk_fh_id' => '1',
                 'url'  => 'http://futhuer.de/ctv/live/infoscripte/fhs/fhs_news.php',
@@ -227,8 +238,9 @@ class InfoscriptController extends AbstractController {
                 'ende'     => '2099-12-31',
                 'aktiv'    => '1',
                 'headline' => 'FHS News',
-            ),
-            array(
+                'description' => 'Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung',
+            ],
+            [
                 'inserat_id'      => '',
                 'fk_fh_id' => '1',
                 'url'  => 'http://futhuer.de/ctv/live/infoscripte/Wetter/wetter.php',
@@ -236,9 +248,10 @@ class InfoscriptController extends AbstractController {
                 'ende'     => '2099-10-14',
                 'aktiv'    => '1',
                 'headline' => 'Wetter',
-            ),
+                'description' => 'Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung',
+            ],
             // </editor-fold>
-        );
+        ];
 
         $iHyd = $this->getService(C::SM_HYD_MODEL_INFOSCRIPT);
         $iMapper = $this->getService(C::SM_MAP_INFOSCRIPT);
@@ -257,7 +270,6 @@ class InfoscriptController extends AbstractController {
 
             $infoscript->addColumn(new \Base\Model\Entity\Infoscript\Column($infoscript->getHeadLine() . ' Titel Col 1', $infoscript->getHeadLine() . ' Text Col 1'));
             $infoscript->addColumn(new \Base\Model\Entity\Infoscript\Column($infoscript->getHeadLine() . ' Titel Col 2', $infoscript->getHeadLine() . ' Text Col 2'));
-            $infoscript->setDescription('Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung Beschreibung');
 
             try {
                 $info = $iMapper->save($infoscript);

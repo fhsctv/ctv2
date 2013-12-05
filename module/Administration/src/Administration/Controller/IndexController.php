@@ -14,7 +14,17 @@ use Base\Constants as C;
 class IndexController extends AbstractController
 {
     public function indexAction() {
-        
-        //return $this->redirect()->toRoute('administration/default', ['controller' => 'infoscript', 'action' => 'show']);
+
+        $users     = $this->forward()->dispatch('Administration\Controller\User', ['action' => 'index',]);
+        $displays  = $this->forward()->dispatch('Administration\Controller\Display', ['action' => 'index',]);
+        $info      = $this->forward()->dispatch('Administration\Controller\Infoscript', ['action' => 'show',]);
+
+        $viewModel = new \Zend\View\Model\ViewModel();
+        $viewModel->addChild($users, 'users');
+        $viewModel->addChild($displays, 'displays');
+        $viewModel->addChild($info, 'info');
+
+        return $viewModel;
+
     }
 }
