@@ -13,10 +13,11 @@ use Zend\View\Model\ViewModel;
 
 use Base\Constants as C;
 
-class InfoscriptController extends AbstractController
-{
-    public function indexAction()
-    {
+class InfoscriptController extends AbstractController {
+
+
+    public function indexAction() {
+
         $id = $this->params()->fromRoute('id', null);
 
         if($id) {
@@ -58,19 +59,15 @@ class InfoscriptController extends AbstractController
         }
         else {
             $infoscript = $this->getServiceLocator()->get(C::SM_ENTITY_INFOSCRIPT);
-            $infoscript->setHeadline('Kopfzeile');
+            $infoscript->setHeadline('Infoscript erstellen');
 
-            $text = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed '
-                    . 'diam nonumy eirmod tempor invidunt ut labore et dolore magna '
-                    . 'aliquyam erat, sed diam voluptua. At vero eos et accusam et '
-                    . 'justo duo dolores et ea rebum. Stet clita kasd gubergren, no '
-                    . 'sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem '
-                    . 'ipsum dolor sit amet, consetetur sadipscing elitr, sed diam '
-                    . 'nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam '
-                    . 'erat, sed diam voluptua. At vero eos et accusam et justo duo '
-                    . 'dolores et ea rebum. Stet clita kasd gubergren, no sea takimata '
-                    . 'sanctus est Lorem ipsum dolor sit amet.';
-            $infoscript->createColumn('Titel des Infoscripts', $text);
+            $titel = 'Wie erstelle ich hier ein Infoscript?';
+
+            $text = 'Klicken Sie einfach auf die Texte und ändern Sie sie.' . '<br/>'
+                    . 'Wenn Sie fertig sind, klicken sie aus "senden"'
+                    . 'Im nächsten Schritt geben Sie Start- und Enddatum an.';
+
+            $infoscript->createColumn($titel, $text);
         }
 
 
@@ -80,8 +77,7 @@ class InfoscriptController extends AbstractController
         ]));
     }
 
-    public function tabelleAction()
-    {
+    public function tabelleAction() {
 
         $id = $this->params()->fromRoute('id', null);
 
@@ -114,8 +110,8 @@ class InfoscriptController extends AbstractController
 
     }
 
-    public function bildAction()
-    {
+    public function bildAction() {
+
         $infoscript = new \Base\Model\Entity\Infoscript();
         $infoscript->setHeadLine('Bild Template');
         $infoscript->addPicture('http://press.tape.tv/wp-content/uploads/2013/02/Download.png');

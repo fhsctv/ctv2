@@ -14,7 +14,7 @@
                 <div class="headline">
                     <div class="datum"><?php echo date("d.m.Y") ?></div>
 
-                    <div class="titel"><?php echo $this->infoscript->getHeadline() ?> <br></div>
+                    <div class="titel" id="headline"><?php echo $this->infoscript->getHeadline() ?> </div>
 
                     <div class="uhr"></div>
                 </div>
@@ -27,11 +27,11 @@
                     <div class="liste">
 
                         <div class="info">
-                            <?php echo $this->infoscript->getFirstColumn()->getTitle(); ?>
-                            <br><br>
-                            <?php echo $this->infoscript->getFirstColumn()->getText(); ?>
+                            <div class="column-title" id="columntitle"><?php echo $this->infoscript->getFirstColumn()->getTitle(); ?> </div>
+                            <br>
+                            <div class="column-text" id="columntext"><?php echo $this->infoscript->getFirstColumn()->getText(); ?> </div>
                         </div>
-                        
+
                     </div>
 
                 </div>
