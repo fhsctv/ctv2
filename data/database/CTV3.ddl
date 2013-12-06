@@ -68,7 +68,7 @@ create table infoscript (
 
 create table infospalte (
      id serial not null,
-     titel varchar(60) not null,
+     title varchar(60) not null,
      text varchar(300) not null,
      inserat_id integer not null,
      constraint IDinfospalte primary key (id));
